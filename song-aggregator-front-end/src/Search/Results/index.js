@@ -5,9 +5,12 @@ import SearchBar from "../SearchBar";
 function Results() {
     const { searchCriteria } = useParams();
     return (
-        <div>
-            <SearchBar search={searchCriteria} />
-            {searchCriteria}
+        <div className="d-flex ">
+            <SearchBar search={searchCriteria} /> 
+            <div>
+                {searchCriteria}
+            </div>
+            
         </div>
     )
 }
