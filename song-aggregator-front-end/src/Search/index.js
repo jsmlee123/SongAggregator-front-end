@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./index.css"
+import SearchBar from "./SearchBar";
 
-function SearchBar() {
-    const [text, setText] = useState('');
+function Search() {
     return (
-        <div>
-            <input 
-                value={text} 
-                placeholder="Enter Search Text..."
-                className="form-control"
-                onChange={(e) => setText(e.target.value)}
-            />
-            
-        </div>
+        <SearchBar searchCriteria=''/>
     );
 }
 
-export default SearchBar;
+export default Search;
