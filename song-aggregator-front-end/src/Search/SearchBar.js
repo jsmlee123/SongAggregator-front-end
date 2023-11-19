@@ -15,23 +15,13 @@ function SearchBar(props) {
                 onChange={(e) => setText(e.target.value)}
             />
             <button type="button" class="btn btn-outline-secondary ms-2">
-                { text !== '' ?
                     <Link
                         key={text}
-                        to={`/results/${text}`}
+                        to={text === '' ? `/search` :`/Results/${text}`}
                         className="text-decoration-none text-secondary"
                     >
                         Search
                     </Link>
-                  :
-                    <Link
-                        key={text}
-                        to={`/search`}
-                        className="text-decoration-none text-secondary"
-                    >
-                        Search
-                    </Link>
-                }
             </button>
         </div>
     );

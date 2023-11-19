@@ -4,19 +4,23 @@ import { Routes, Route, Navigate } from "react-router";
 import Search from './Search';
 import Home from './Home';
 import Results from './Search/Results';
+import NavBar from './Navigation';
 
 function App() {
   return (
-    <HashRouter>
-      <div>
-        <Routes>
-          <Route path="/" element={<Navigate to="home" />} />
-          <Route path="home" element={<Home />} />
-          <Route path="search" element={<Search />} />
-          <Route path="results/:searchCriteria/*" element={<Results />} />
-        </Routes>
-      </div>
-    </HashRouter>
+    <div>
+      <HashRouter>
+        <NavBar/>
+        <div>
+          <Routes>
+            <Route path="/" element={<Navigate to="home" />} />
+            <Route path="Home" element={<Home />} />
+            <Route path="Search" element={<Search />} />
+            <Route path="Results/:searchCriteria/*" element={<Results />} />
+          </Routes>
+        </div>
+      </HashRouter>
+    </div>
   );
 }
 
