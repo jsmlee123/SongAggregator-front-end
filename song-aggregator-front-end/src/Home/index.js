@@ -3,7 +3,7 @@ import '../global.css'
 
 function Home() {
     return (
-        <div className="content-container">
+        <div>
             Filler Home Text
         </div>
     )

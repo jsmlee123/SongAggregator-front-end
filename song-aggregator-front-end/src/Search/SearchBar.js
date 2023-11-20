@@ -14,11 +14,11 @@ function SearchBar(props) {
                 className="form-control w-100"
                 onChange={(e) => setText(e.target.value)}
             />
-            <button type="button" class="btn btn-outline-secondary ms-2">
+            <button type="button" class="btn btn-secondary ms-2">
                     <Link
                         key={text}
-                        to={text === '' ? `/search` :`/Results/${text}`}
-                        className="text-decoration-none text-secondary"
+                        to={text === '' ? `/Search` :`/Results/${text}`}
+                        className="text-decoration-none text-dark"
                     >
                         Search
                     </Link>

@@ -5,13 +5,14 @@ import Search from './Search';
 import Home from './Home';
 import Results from './Search/Results';
 import NavBar from './Navigation';
+import './global.css'
 
 function App() {
   return (
     <div>
       <HashRouter>
         <NavBar/>
-        <div>
+        <div className='content-container'>
           <Routes>
             <Route path="/" element={<Navigate to="home" />} />
             <Route path="Home" element={<Home />} />
