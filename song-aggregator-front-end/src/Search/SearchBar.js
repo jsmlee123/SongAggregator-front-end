@@ -17,7 +17,7 @@ function SearchBar(props) {
             />
             <button 
                 type="button" 
-                class="btn btn-secondary ms-2"
+                className="btn btn-secondary ms-2"
                 onClick={callback}
             >
                     <Link

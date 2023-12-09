@@ -33,7 +33,7 @@ function NavBar() {
     return (
         <div className="side-bar">
             <img src={ICON_URL}
-                class="card-img-top" alt="..."></img>
+                className="card-img-top" alt="..."></img>
             {links.map((link, index) => (
                 <Link
                     key={index}

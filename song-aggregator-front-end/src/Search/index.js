@@ -11,9 +11,9 @@ function Search() {
         <div className="d-flex flex-column align-items-center justify-content-center search-bar-container ">
             <div className="d-flex flex-row align-items-center justify-content-center mb-3">
                 <img src={SEARCH_ICON_URL}
-                 class="card-img" alt="..."></img>
+                 className="card-img" alt="..."></img>
                 <img src={ICON_URL}
-                 class="card-img" alt="..."></img>
+                 className="card-img" alt="..."></img>
             </div>
             <SearchBar search={''}/>
         </div>
