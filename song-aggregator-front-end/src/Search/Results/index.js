@@ -4,6 +4,7 @@ import SearchBar from "../SearchBar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { fetchSong } from "./client";
 import { Link } from "react-router-dom";
+import "../index.css"
 
 
 function Results() {
@@ -33,8 +34,8 @@ function Results() {
                                 to={`/details/${tracks[key].artist}/${tracks[key].name}`}
                                 className="text-decoration-none text-dark"
                             >
-                                <div className="card rounded-0 mt-1">
-                                    <div class="card-body ">
+                                <div className="card rounded-5  mt-1">
+                                    <div class="card-body rounded-5 card-container">
                                         {tracks[key].name} - {tracks[key].artist}
                                     </div>
                                 </div>

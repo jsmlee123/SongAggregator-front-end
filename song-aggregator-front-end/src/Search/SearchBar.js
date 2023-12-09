@@ -12,7 +12,7 @@ function SearchBar(props) {
             <input 
                 value={text} 
                 placeholder="Enter Search Text..."
-                className="form-control w-100"
+                className="form-control w-100 rounded-5"
                 onChange={(e) => setText(e.target.value)}
             />
             <button 

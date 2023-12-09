@@ -7,6 +7,7 @@ import Results from './Search/Results';
 import NavBar from './Navigation';
 import './global.css'
 import Profile from './Profile';
+import Details from './Details';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="Profile" element={<Profile />} />
             <Route path="Search" element={<Search />} />
             <Route path="Results/:searchCriteria/*" element={<Results />} />
+            <Route path='Details/:artistName/:songName'element={<Details />}/>
           </Routes>
         </div>
       </HashRouter>
