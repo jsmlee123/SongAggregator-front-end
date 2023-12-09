@@ -9,19 +9,38 @@ import './global.css'
 import Profile from './Profile';
 import Details from './Details';
 
+import Signin from './Users/signin';
+import {useState } from 'react';
+
+//testing authentication
+
 function App() {
+
+  const [users, setUsers] = useState([]);
+  const [authentication, setAuthentication] = useState(() => {
+    const authState = localStorage.getItem('authentication');
+    return authState ? JSON.parse(authState) : false;
+
+  }
+  );
+
+
+
   return (
     <div>
       <HashRouter>
         <NavBar/>
         <div className='content-container'>
           <Routes>
-            <Route path="/" element={<Navigate to="home" />} />
+            <Route path="/" element={<Navigate to="signin" />} />
             <Route path="Home" element={<Home />} />
             <Route path="Profile" element={<Profile />} />
             <Route path="Search" element={<Search />} />
             <Route path="Results/:searchCriteria/*" element={<Results />} />
             <Route path='Details/:artistName/:songName'element={<Details />}/>
+
+            <Route path="signin" element={<Signin setAuthentication={setAuthentication} />} />
+
           </Routes>
         </div>
       </HashRouter>
