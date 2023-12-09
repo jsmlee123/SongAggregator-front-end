@@ -1,43 +1,90 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../global.css'
-import { FaGripLines } from "react-icons/fa";
+import './/index.css'
+import { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { FaGripLines, FaUserCircle, FaLink, FaExternalLinkSquareAlt, FaPencilAlt, FaSearch } from "react-icons/fa";
 
 function Profile() {
+    // const [account, setAccount] = useState(null);
+    // const navigate = useNavigate();
+    // const fetchAccount = async () => {
+    //     const account = await client.account();
+    //     setAccount(account);
+    // };
+    const follow = async () => {
+        // try {
+        //   await client.signup(credentials);
+        //   navigate("/project/account");
+        // } catch (err) {
+        //   setError(err.response.data.message);
+        // }
+    };
+    const unfollow = async () => {
+        // try {
+        //   await client.signup(credentials);
+        //   navigate("/project/account");
+        // } catch (err) {
+        //   setError(err.response.data.message);
+        // }
+    };
+    const signedIn = true;
+    const currentUser = true;
     return (
-        <div className="content-container">
+        <div className="content-container-profile">
+            <div id="account-options">
+                <div class="profile-header">
+                    <h3> <FaGripLines className='text-light' /> Jose Annunziato's Profile </h3>
+                </div>
+                <hr class="hr-line" />
+            </div>
             <div>
-        <div class="wd-account-options">
-            <div class="wd-profile-header">
-                <h3> <FaGripLines/> Jose Annunziato's Profile </h3>
-            </div>
-            <hr class="wd-hr-line"/>
-        </div>
-        <div>
-            <div class="wd-profile-section">
-                <i class="fas fa-user-circle fa-8x"></i>
-                <h3>Jose Annunziato</h3>
-                <h4>Contact</h4>
-                <p>No registered services, you can add some on the <a href="#">settings</a> page.</p>
-                <h4>Biography</h4>
-                <p>Faculty, Software Engineer, AI, Space, and renewables enthusiast.</p>
-                <h4>Links</h4>
-                <ul>
-                    <li>
-                        <i class="fas fa-link"></i>
-                        <a href="https://www.youtube.com/webdevtv">Youtube</a>
-                        <i class="fas fa-external-link-square-alt"></i>
-                    </li>
-                </ul>
-            </div>
-            <div class="wd-edit-profile-button">
-                <div class="float-end">
-                    <a href="edit.html" class="btn btn-secondary">
-                        <i class="fas fa-pencil-alt fa-rotate-270"></i>
-                        Edit Profile</a>
+                <div id="profile-section">
+                    <FaUserCircle className="fs-1" />
+                    <h3>Jose Annunziato</h3>
+                    {signedIn
+                     ? ( <div>
+                        <h4>Contact</h4>
+                    <p>Email: annunziatio.jose@gmail.com</p>
+                    <h4>Biography</h4>
+                    <p>Born on: 01/01/2020</p> 
+                    <p>Role: Listener</p>
+                    </div>)
+                    :(<div className='warning'>
+                        <h4> WARNING!</h4>
+                        <p>Must be signed in to see private/sensitive info.</p>
+                         </div>) }
+                    <h4>Following</h4>
+                    <ul>
+                        <li>
+                            <FaLink />
+                            <a href="https://www.youtube.com/webdevtv">Youtube</a>
+                            <FaExternalLinkSquareAlt />
+                        </li>
+                    </ul>
+                    <h4>Liked Songs</h4>
+                    <ul>
+                        <li>
+                            <FaLink />
+                            <a href="https://www.youtube.com/webdevtv">Youtube</a>
+                            <FaExternalLinkSquareAlt />
+                        </li>
+                    </ul>
+                </div>
+                <div class="edit-profile-button">
+                    {signedIn && (<button className="btn btn-success" onClick={follow}>
+                        Follow
+                    </button>)}
+                    {signedIn && (<button className="btn btn-danger" onClick={unfollow}>
+                        Unfollow
+                    </button>)}
+                    {currentUser && (<Link to="/EditProfile" className="btn btn-secondary">
+                        <FaPencilAlt className='fa-rotate-270' />
+                        Edit Profile</Link>)}
+                    <Link to="/AllUsers" class="btn btn-info">
+                        <FaSearch />
+                        Show All Users</Link>
                 </div>
             </div>
-        </div>
-    </div>
         </div>
     )
 }
