@@ -32,12 +32,16 @@ function Results() {
                             <Link
                                 key={tracks[key].name}
                                 to={`/details/${tracks[key].artist}/${tracks[key].name}`}
-                                className="text-decoration-none text-dark"
+                                className="text-decoration-none text-dark "
                             >
-                                <div className="card rounded-5  mt-1">
-                                    <div class="card-body rounded-5 card-container">
+                                <div className="d-flex flex-row card rounded-5 mt-1 card-container">
+                                    <div className="card-body rounded-5 card-container">
                                         {tracks[key].name} - {tracks[key].artist}
+                                        <div className="float-end me-5">
+                                            Listeners: {tracks[key].listeners}
+                                        </div>
                                     </div>
+                                    
                                 </div>
                             </Link>
                         );
