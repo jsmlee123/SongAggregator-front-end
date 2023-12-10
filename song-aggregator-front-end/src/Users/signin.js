@@ -18,7 +18,7 @@ function Signin(props) {
     try {
       await client.signin(credentials);
       localStorage.setItem('authentication', true);
-      navigate('/Profile');
+      navigate('/Home');
     } catch (error) {
       setError(error);
     }

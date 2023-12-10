@@ -8,14 +8,10 @@ import * as client from '../GlobalClient';
 function Profile() {
     const [account, setAccount] = useState(null);
     const { userId } = useParams();
-    const { currentUser, setCurrentUser } = useState(null);
+    const [ currentUser, setCurrentUser ] = useState(null);
     const navigate = useNavigate();
     // const [account, setAccount] = useState(null);
     // const navigate = useNavigate();
-    // const fetchAccount = async () => {
-    //     const account = await client.account();
-    //     setAccount(account);
-    // };
 
     // const fetchFollowers = async (userId) => {
     //     const followers = await followsClient.findUsersFollowingUser(userId);
@@ -29,9 +25,14 @@ function Profile() {
 
     const [user, setUser] = useState(null);
 
+    const fetchAccount = async () => {
+        const usr = await client.account();
+        setUser(usr);
+    };
+
     useEffect(() => {
         fetchAccount();
-        getCurrentUser();
+        getCurrentUser(userId);
     }, []);
     
     const follow = async () => {
@@ -55,14 +56,14 @@ function Profile() {
         <div className="content-container-profile">
             <div id="account-options">
                 <div className="profile-header">
-                    <h3> <FaGripLines className='text-light' /> Jose Annunziato's Profile </h3>
+                    <h3> <FaGripLines className='text-light' />{currentUser && currentUser.firstName + " " + currentUser.lastName}'s Profile </h3>
                 </div>
                 <hr className="hr-line" />
             </div>
             <div>
                 <div id="profile-section">
                     <FaUserCircle className="fs-1" />
-                    <h3>{userId && userId.firstName + " " + userId.lastName}</h3>
+                    <h3>{currentUser && currentUser.firstName + " " + currentUser.lastName}</h3>
                     {signedIn
                      ? ( <div>
                         <h4>Contact</h4>
@@ -92,7 +93,7 @@ function Profile() {
                         </li>
                     </ul>
                 </div>
-                <div class="edit-profile-button">
+                <div className="edit-profile-button">
                     {signedIn && (<button className="btn btn-success" onClick={follow}>
                         Follow
                     </button>)}
@@ -102,7 +103,7 @@ function Profile() {
                     {currentUser && (<Link to="/EditProfile" className="btn btn-secondary">
                         <FaPencilAlt className='fa-rotate-270' />
                         Edit Profile</Link>)}
-                    <Link to="/AllUsers" class="btn btn-info">
+                    <Link to="/AllUsers" className="btn btn-info">
                         <FaSearch />
                         Show All Users</Link>
                 </div>

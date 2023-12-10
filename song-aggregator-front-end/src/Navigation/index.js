@@ -11,9 +11,8 @@ import * as client from '../GlobalClient';
 function NavBar() {
     const [user, setUser] = useState(null);
     const fetchAccount = async () => {
-        const user = await client.account();
-        console.log(user);
-        setUser(user);
+        const usr = await client.account();
+        setUser(usr);
     };
     useEffect(() => {
         fetchAccount();
