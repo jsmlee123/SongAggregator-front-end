@@ -22,11 +22,8 @@ function App() {
   const [authentication, setAuthentication] = useState(() => {
     const authState = localStorage.getItem('authentication');
     return authState ? JSON.parse(authState) : false;
-
   }
   );
-
-
 
   return (
     <div>
@@ -34,7 +31,7 @@ function App() {
         <NavBar/>
         <div className='content-container'>
           <Routes>
-            <Route path="/" element={<Navigate to="signin" />} />
+            <Route path="/" element={<Navigate to="Home" />} />
             <Route path="Home" element={<Home />} />
             <Route path="Profile" element={<Profile />} />
             <Route path="EditProfile" element={<EditProfile />} />
@@ -42,9 +39,7 @@ function App() {
             <Route path="Search" element={<Search />} />
             <Route path="Results/:searchCriteria/*" element={<Results />} />
             <Route path='Details/:artistName/:songName'element={<Details />}/>
-
-            <Route path="signin" element={<Signin setAuthentication={setAuthentication} />} />
-
+            <Route path="Login" element={<Signin setAuthentication={setAuthentication} />} />
           </Routes>
         </div>
       </HashRouter>

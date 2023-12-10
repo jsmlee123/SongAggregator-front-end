@@ -1,9 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './/index.css'
-import * as client from "./client";
-import { useState, useEffect } from "react";
+import react, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaGripLines, FaUserCircle, FaLink, FaExternalLinkSquareAlt, FaPencilAlt, FaSearch } from "react-icons/fa";
+import * as client from '../GlobalClient';
+
+
 
 function Profile() {
     const [account, setAccount] = useState(null);
@@ -21,6 +23,19 @@ function Profile() {
     //     const account = await client.account();
     //     setAccount(account);
     // };
+
+    const [user, setUser] = useState(null);
+
+    const fetchAccount = async () => {
+        const user = await client.account();
+        console.log(user);
+        setUser(user);
+    };
+
+    useEffect(() => {
+        fetchAccount();
+    }, []);
+    
     const follow = async () => {
         // try {
         //   await client.signup(credentials);
@@ -42,17 +57,15 @@ function Profile() {
     return (
         <div className="content-container-profile">
             <div id="account-options">
-                <div class="profile-header">
-                    <h3> <FaGripLines className='text-light' /> 
-                    Jose Annunziato's Profile
-                     </h3>
+                <div className="profile-header">
+                    <h3> <FaGripLines className='text-light' /> Jose Annunziato's Profile </h3>
                 </div>
-                <hr class="hr-line" />
+                <hr className="hr-line" />
             </div>
             <div>
                 <div id="profile-section">
                     <FaUserCircle className="fs-1" />
-                    <h3>Jose Annunziato</h3>
+                    <h3>{user && user.firstName + " " + user.lastName}</h3>
                     {signedIn
                      ? ( <div>
                         <h4>Contact</h4>
