@@ -1,19 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { fetchSong } from "./client";
-import { addSong, findByUserName, findSong } from "../GlobalClient";
+import { account, addSong, createReview, findByUserName, findReviewsBySongID, findSong, findUserFromReviewId } from "../GlobalClient";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 
 function Details() {
     const { artistName, songName } = useParams();
 
+    const [user, setUser] = useState(null);
+
     const [artist, setArtist] = useState(null);
+
+    const [reviews, setReviews] = useState([]);
+
+    const [userReview, setUserReview] = useState("");
 
     const [localTrack, setLocalTrack] = useState({
         ArtistName: "", 
         SongName: ""
     });
+
+    const fetchAccount = async () => {
+        const usr = await account();
+        setUser(usr);
+    };
+
+    const fetchReviews = async (sid) => {
+        const reviews = await findReviewsBySongID(sid);
+        for (let i = 0; i < reviews.length; i++) {
+            reviews[i]["user"] = await findUserFromReviewId(reviews[i]._id);
+        }
+        setReviews(reviews);
+        return reviews;
+    };
+
+    const submitReview = async () => {
+        createReview({review: userReview, UserId: user._id, SongId: localTrack._id})
+            .then(() => fetchReviews(localTrack._id))
+            ;
+    }
 
     
     useEffect(() => {
@@ -21,38 +47,41 @@ function Details() {
             .then((user) => setArtist(user))             
             .catch((e) => console.log(e));
         
+        fetchAccount();
+
         findSong(artistName, songName)
-            .then((response) => { 
-                if (response) {
-                    setLocalTrack(response);
-                } else {
+            .then((response) => {
+                let song = response;
+                if (!song) {
                     fetchSong(songName, artistName)
                     .then((response) => {
                         const songObj = { ArtistName: artistName, SongName: songName}
                         if (artist) {
                             songObj["ArtistId"] = artist._id;
                         }
-                        console.log(response)
-                        if ("wiki" in response) {
+                        if (response && "wiki" in response) {
                             const arefIndex = response.wiki.summary.indexOf("<a href");
                             songObj["SongDescription"] = response.wiki.summary
                                 .slice(0, arefIndex != -1 ? arefIndex : response.wiki.summary.length);
                         }
-                        if ("album" in response) {
+                        if (response && "album" in response) {
                             songObj["ImageURL"] = response.album.image["3"]["#text"];
                         } 
                         addSong(songObj)
-                            .then((response) => setLocalTrack(response))
+                            .then((response) => song = (response))
                             .catch((e) => console.log(e));
-                    });
+                    })
                 }
-            });
+                setLocalTrack(song);
+                return song;
+            })
+            .then((song) => fetchReviews(song._id));
     }, []);
 
-    
+
     
     return (
-        <div className="d-flex flex-row details-page-container">
+        <div className="d-flex flex-row justify-content-between details-page-container">
             <div className="d-flex flex-column card song-info-card rounded-4 ">
                 {"ImageURL" in localTrack && 
                     <img src={localTrack.ImageURL}
@@ -69,9 +98,48 @@ function Details() {
                 </p>
             </div>
 
-            <div>
-                
+            <div className="d-flex flex-column card song-info-card rounded-4 ms-5 ">
+                <h2>
+                    Reviews
+                </h2>
+                <div className="overflow-auto">
+                    {
+                        reviews.map((rev) => {
+                            return (
+                            <div className="d-flex flex-column review-card rounded-5 justify-content-between mb-2 overflow-auto">
+                                <div>{rev.review}</div>
+                                <div>
+                                    {"- " + rev.user.firstName +" " + rev.user.lastName}
+                                </div>
+                            </div>);
+                        })
+                    }
+                </div>
             </div>
+            
+            <div className="d-flex flex-column card song-info-card rounded-4 ms-5 ">
+                {user && 
+                    <div>
+                        <h4>Write a Review</h4>
+                        <textarea 
+                            class="form-control" 
+                            id="reviewFormSubmission" 
+                            rows="5"
+                            onChange={(e) => setUserReview(e.target.value)}/>
+                        <button 
+                            type="button" 
+                            className="btn btn-secondary mt-2"
+                            onClick={submitReview}
+                        >
+                            Submit
+                        </button>
+                    </div>
+                    
+                }
+            </div>
+
+            
+            
         </div>
         
     );

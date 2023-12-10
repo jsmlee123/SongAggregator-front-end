@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function EditProfile() {
     const navigate = useNavigate();
+    
+
     const saveChanges = async () => {
       navigate("/Profile");
     };
