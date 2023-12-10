@@ -29,12 +29,6 @@ function Profile() {
 
     const [user, setUser] = useState(null);
 
-    const fetchAccount = async () => {
-        const user = await client.account();
-        console.log(user);
-        setUser(user);
-    };
-
     useEffect(() => {
         fetchAccount();
         getCurrentUser();
