@@ -3,6 +3,7 @@ export const BASE_API = "http://localhost:4000";
 export const USERS_API = `${BASE_API}/api/users`;
 export const SONG_API = `${BASE_API}/api/songs`;
 export const REVIEW_API = `${BASE_API}/api/reviews`;
+export const LIKES_API = `${BASE_API}/api/likes`;
 
 export const LAST_FM_KEY = "300174397d5c23bd99ff6cf5a31e4b3e"; //fix this
 const request = axios.create({
@@ -63,5 +64,21 @@ export const findUserFromReviewId = async (rid)  => {
 
 export const findUserLikesBySong = async (sid) => {
   const response = await axios.get(`${USERS_API}/likes/song/${sid}`);
+  return response.data;
+};
+
+export const findLikeByUserSong = async (sid, uid) => {
+  const response = await axios.get(`${LIKES_API}/${sid}/${uid}`);
+  return response.data
+};
+
+
+export const deleteLike = async (sid, uid) => {
+  const response = await axios.delete(`${LIKES_API}/${sid}/${uid}`);
+  return response.data
+};
+
+export const createLike = async (sid, uid) => {
+  const response = await axios.post(`${LIKES_API}/${sid}/${uid}`);
   return response.data;
 };

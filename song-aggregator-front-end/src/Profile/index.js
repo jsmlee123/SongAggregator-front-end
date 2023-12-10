@@ -6,7 +6,6 @@ import { FaGripLines, FaUserCircle, FaLink, FaExternalLinkSquareAlt, FaPencilAlt
 import * as client from '../GlobalClient';
 
 function Profile() {
-    const [account, setAccount] = useState(null);
     const { userId } = useParams();
     const [ currentUser, setCurrentUser ] = useState(null);
     const navigate = useNavigate();

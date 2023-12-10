@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { fetchSong } from "./client";
 import { Link, useLocation } from "react-router-dom";
-import { account, addSong, createReview, findByUserName, findReviewsBySongID, findSong, findUserFromReviewId, findUserLikesBySong } from "../GlobalClient";
+import { account, addSong, createLike, createReview, deleteLike, findByUserName, findLikeByUserSong, findReviewsBySongID, findSong, findUserFromReviewId, findUserLikesBySong } from "../GlobalClient";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 
@@ -19,10 +19,50 @@ function Details() {
         SongDescription: ""
     });
     const [userLikes, setUserLikes] = useState([]);
+    const [isSongLiked, setIsSongLiked] = useState(false);
+
+
+    const fetchIsUserLiked = async (sid) => {
+        fetchAccount()
+        .then((usr) =>{
+            if (usr) {
+                findLikeByUserSong(sid, usr._id)
+                .then((like) => setIsSongLiked(like != null));
+                
+            }
+        });
+    };
+
+    const deleteUserLiked = async (sid) => {
+        fetchAccount()
+        .then((usr) =>{
+            if (usr) {
+                deleteLike(sid, usr._id)
+                .then(() => {
+                    fetchIsUserLiked(sid);
+                    fetchLikes(sid);
+                });
+            }
+        });
+    }
+
+    const addUserLiked = async (sid) => {
+        fetchAccount()
+        .then((usr) =>{
+            if (usr) {
+                createLike(sid, usr._id)
+                .then(() => {
+                    fetchIsUserLiked(sid);
+                    fetchLikes(sid);
+                });
+            }
+        });
+    }
 
     const fetchAccount = async () => {
         const usr = await account();
         setUser(usr);
+        return usr;
     };
 
     const fetchLikes = async (sid) => {
@@ -74,6 +114,7 @@ function Details() {
                     .then((response) => {
                         fetchReviews(response._id);
                         fetchLikes(response._id);
+                        fetchIsUserLiked(response._id);
                     })
                     .catch((e) => console.log(e));  
             })
@@ -163,6 +204,21 @@ function Details() {
                             </div>
                         ))}
                     </div>
+                    {user && 
+                        <div className="mt-4">
+                            <h4>
+                                Like/Unlike Song
+                            </h4>
+                            <button 
+                                type="button" 
+                                className={`btn mt-2 ${isSongLiked ?  "btn-danger" : "btn-success"}`}
+                                onClick={isSongLiked ? () => deleteUserLiked(localTrack._id) : () => addUserLiked(localTrack._id)}
+                            >
+                                {isSongLiked ? "Unlike" : "Like"}
+                            </button>
+                        </div>
+                        
+                    }
                 </div>
             </div>
         </div>
