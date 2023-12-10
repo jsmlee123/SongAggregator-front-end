@@ -1,10 +1,20 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './/index.css'
+import * as client from "./client";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { FaGripLines, FaUserCircle, FaLink, FaExternalLinkSquareAlt, FaPencilAlt, FaSearch } from "react-icons/fa";
 
 function Profile() {
+    const [account, setAccount] = useState(null);
+    const navigate = useNavigate();
+    const fetchAccount = async () => {
+        const account = await client.account();
+        setAccount(account);
+    };
+    useEffect(() => {
+        fetchAccount();
+    }, []);
     // const [account, setAccount] = useState(null);
     // const navigate = useNavigate();
     // const fetchAccount = async () => {
@@ -27,13 +37,15 @@ function Profile() {
         //   setError(err.response.data.message);
         // }
     };
-    const signedIn = true;
+    const signedIn = account !== null;
     const currentUser = true;
     return (
         <div className="content-container-profile">
             <div id="account-options">
                 <div class="profile-header">
-                    <h3> <FaGripLines className='text-light' /> Jose Annunziato's Profile </h3>
+                    <h3> <FaGripLines className='text-light' /> 
+                    Jose Annunziato's Profile
+                     </h3>
                 </div>
                 <hr class="hr-line" />
             </div>
