@@ -18,7 +18,8 @@ function Details() {
 
     const [localTrack, setLocalTrack] = useState({
         ArtistName: "", 
-        SongName: ""
+        SongName: "",
+        SongDescription: ""
     });
 
     const fetchAccount = async () => {
@@ -37,8 +38,7 @@ function Details() {
 
     const submitReview = async () => {
         createReview({review: userReview, UserId: user._id, SongId: localTrack._id})
-            .then(() => fetchReviews(localTrack._id))
-            ;
+            .then(() => fetchReviews(localTrack._id));
     }
 
     
@@ -48,42 +48,39 @@ function Details() {
             .catch((e) => console.log(e));
         
         fetchAccount();
-
-        findSong(artistName, songName)
+        
+        fetchSong(songName, artistName)
             .then((response) => {
-                let song = response;
-                if (!song) {
-                    fetchSong(songName, artistName)
-                    .then((response) => {
-                        const songObj = { ArtistName: artistName, SongName: songName}
-                        if (artist) {
-                            songObj["ArtistId"] = artist._id;
-                        }
-                        if (response && "wiki" in response) {
-                            const arefIndex = response.wiki.summary.indexOf("<a href");
-                            songObj["SongDescription"] = response.wiki.summary
-                                .slice(0, arefIndex != -1 ? arefIndex : response.wiki.summary.length);
-                        }
-                        if (response && "album" in response) {
-                            songObj["ImageURL"] = response.album.image["3"]["#text"];
-                        } 
-                        addSong(songObj)
-                            .then((response) => song = (response))
-                            .catch((e) => console.log(e));
-                    })
+                const songObj = { ArtistName: artistName, SongName: songName}
+                if (artist) {
+                    songObj["ArtistId"] = artist._id;
                 }
-                setLocalTrack(song);
-                return song;
+                if (response && "wiki" in response) {
+                    const arefIndex = response.wiki.summary.indexOf("<a href");
+                    songObj["SongDescription"] = response.wiki.summary
+                        .slice(0, arefIndex != -1 ? arefIndex : response.wiki.summary.length);
+                }
+                if (response && "album" in response) {
+                    songObj["ImageURL"] = response.album.image["3"]["#text"];
+                } 
+                addSong(songObj)
+                    .then((response) => {
+                        setLocalTrack(response);
+                        return response;
+                    })
+                    .then((response) => {
+                        fetchReviews(response._id);
+                    })
+                    .catch((e) => console.log(e));  
             })
-            .then((song) => fetchReviews(song._id));
     }, []);
 
 
     
     return (
         <div className="d-flex flex-row justify-content-between details-page-container">
-            <div className="d-flex flex-column card song-info-card rounded-4 ">
-                {"ImageURL" in localTrack && 
+            <div className="d-flex flex-column card song-info-card rounded-4  overflow-auto">
+                {("ImageURL" in localTrack) && 
                     <img src={localTrack.ImageURL}
                         className="card-img-top" alt="..."></img>
                 }
@@ -104,10 +101,14 @@ function Details() {
                 </h2>
                 <div className="overflow-auto">
                     {
-                        reviews.map((rev) => {
+                        reviews.map((rev,index) => {
                             return (
-                            <div className="d-flex flex-column review-card rounded-5 justify-content-between mb-2 overflow-auto">
-                                <div>{rev.review}</div>
+                            <div 
+                                className="d-flex flex-column review-card rounded-5 justify-content-between mb-2 overflow-auto"
+                                key={"review_card"+ index}>
+                                <div>
+                                    {rev.review}
+                                </div>
                                 <div>
                                     {"- " + rev.user.firstName +" " + rev.user.lastName}
                                 </div>
@@ -122,7 +123,7 @@ function Details() {
                     <div>
                         <h4>Write a Review</h4>
                         <textarea 
-                            class="form-control" 
+                            className="form-control" 
                             id="reviewFormSubmission" 
                             rows="5"
                             onChange={(e) => setUserReview(e.target.value)}/>
@@ -134,12 +135,8 @@ function Details() {
                             Submit
                         </button>
                     </div>
-                    
                 }
             </div>
-
-            
-            
         </div>
         
     );
