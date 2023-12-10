@@ -1,0 +1,14 @@
+.song-info-card {
+    width: 50vh;
+    height: 90vh;
+    background-color: rgb(230, 215, 215);
+    padding: 20px;
+}
+.song-info-container {
+    align-items: center;
+    justify-content: center;
+}
+.details-page-container {
+    padding-top: 20px;
+    padding-left: 30px;
+}
