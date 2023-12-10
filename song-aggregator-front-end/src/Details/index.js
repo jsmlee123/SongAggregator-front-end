@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { fetchSong } from "./client";
-import { account, addSong, createReview, findByUserName, findReviewsBySongID, findSong, findUserFromReviewId } from "../GlobalClient";
+import { Link, useLocation } from "react-router-dom";
+import { account, addSong, createReview, findByUserName, findReviewsBySongID, findSong, findUserFromReviewId, findUserLikesBySong } from "../GlobalClient";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 
@@ -9,22 +10,24 @@ function Details() {
     const { artistName, songName } = useParams();
 
     const [user, setUser] = useState(null);
-
     const [artist, setArtist] = useState(null);
-
     const [reviews, setReviews] = useState([]);
-
     const [userReview, setUserReview] = useState("");
-
     const [localTrack, setLocalTrack] = useState({
         ArtistName: "", 
         SongName: "",
         SongDescription: ""
     });
+    const [userLikes, setUserLikes] = useState([]);
 
     const fetchAccount = async () => {
         const usr = await account();
         setUser(usr);
+    };
+
+    const fetchLikes = async (sid) => {
+        const userLikes = await findUserLikesBySong(sid);
+        setUserLikes(userLikes);
     };
 
     const fetchReviews = async (sid) => {
@@ -70,6 +73,7 @@ function Details() {
                     })
                     .then((response) => {
                         fetchReviews(response._id);
+                        fetchLikes(response._id);
                     })
                     .catch((e) => console.log(e));  
             })
@@ -110,7 +114,13 @@ function Details() {
                                     {rev.review}
                                 </div>
                                 <div>
-                                    {"- " + rev.user.firstName +" " + rev.user.lastName}
+                                    <Link
+                                        key={rev._id}
+                                        to={`/Profile/${rev.user._id}`}
+                                        className={`text-decoration-none text-center text-info text-dark`}
+                                    >   
+                                        {"- " + rev.user.firstName +" " + rev.user.lastName}
+                                    </Link>
                                 </div>
                             </div>);
                         })
@@ -136,6 +146,24 @@ function Details() {
                         </button>
                     </div>
                 }
+                <div className="mt-3">
+                    <h4>
+                        Liked By {userLikes.length} People
+                    </h4>
+                    <div className="likes-card overflow-auto rounded-5">
+                        {userLikes.map((userLike) => (
+                            <div>
+                                <Link
+                                    key={localTrack._id + "_" + userLike._id}
+                                    to={`/Profile/${userLike._id}`}
+                                    className={`text-decoration-none text-center text-info text-dark`}
+                                >                           
+                                    {userLike.firstName + " " + userLike.lastName}
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
         

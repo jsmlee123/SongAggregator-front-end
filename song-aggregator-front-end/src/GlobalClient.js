@@ -60,3 +60,8 @@ export const findUserFromReviewId = async (rid)  => {
   const response = await axios.get(`${REVIEW_API}/user/${rid}`);
   return response.data;
 };
+
+export const findUserLikesBySong = async (sid) => {
+  const response = await axios.get(`${USERS_API}/likes/song/${sid}`);
+  return response.data;
+};

@@ -51,7 +51,7 @@ function Profile() {
         //   setError(err.response.data.message);
         // }
     };
-    const signedIn = account !== null;
+    
     return (
         <div className="content-container-profile">
             <div id="account-options">
@@ -64,7 +64,7 @@ function Profile() {
                 <div id="profile-section">
                     <FaUserCircle className="fs-1" />
                     <h3>{currentUser && currentUser.firstName + " " + currentUser.lastName}</h3>
-                    {signedIn
+                    {user
                      ? ( <div>
                         <h4>Contact</h4>
                     <p>Email: annunziatio.jose@gmail.com</p>
@@ -94,10 +94,10 @@ function Profile() {
                     </ul>
                 </div>
                 <div className="edit-profile-button">
-                    {signedIn && (<button className="btn btn-success" onClick={follow}>
+                    {user && (<button className="btn btn-success" onClick={follow}>
                         Follow
                     </button>)}
-                    {signedIn && (<button className="btn btn-danger" onClick={unfollow}>
+                    {user && (<button className="btn btn-danger" onClick={unfollow}>
                         Unfollow
                     </button>)}
                     {currentUser && (<Link to="/EditProfile" className="btn btn-secondary">
