@@ -28,7 +28,7 @@ function AllUsers() {
                             <td>{user.role}</td>
                             <td>
                                 <button className="btn btn-info">
-                                    <Link to="/Profile">
+                                    <Link to={`/Profile/${user._id}`}>
                                     <BsPencil />
                                     </Link>
                                 </button>

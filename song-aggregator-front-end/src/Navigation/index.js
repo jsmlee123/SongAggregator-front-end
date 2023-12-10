@@ -6,8 +6,20 @@ import { FaHome, FaSearch, FaSignInAlt } from "react-icons/fa";
 import "./index.css"
 import { Link, useLocation } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import * as client from '../GlobalClient';
 
 function NavBar() {
+    const [user, setUser] = useState(null);
+    const fetchAccount = async () => {
+        const user = await client.account();
+        console.log(user);
+        setUser(user);
+    };
+    useEffect(() => {
+        fetchAccount();
+    }, []);
+    const profileLink = (user === null ? "AllUsers" : "Profile/" + user._id);
+
     const links = [
         "Home", 
         "Profile",
@@ -30,6 +42,7 @@ function NavBar() {
         return pathname.includes(link) 
             || (pathname.includes("Results") && link === "Search");
     }
+
     return (
         <div className="side-bar">
             <img src={ICON_URL}
@@ -37,7 +50,8 @@ function NavBar() {
             {links.map((link, index) => (
                 <Link
                     key={index}
-                    to={`/${link}`}
+                    
+                    to={`/${link === "Profile" ? profileLink : link}`}
                     className={`text-decoration-none text-center text-info ${
                         pathname.includes(link) && "active"
                     }`}

@@ -1,28 +1,31 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './/index.css'
 import react, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useParams } from "react-router-dom";
 import { FaGripLines, FaUserCircle, FaLink, FaExternalLinkSquareAlt, FaPencilAlt, FaSearch } from "react-icons/fa";
 import * as client from '../GlobalClient';
 
-
-
 function Profile() {
     const [account, setAccount] = useState(null);
+    const { userId } = useParams();
+    const { currentUser, setCurrentUser } = useState(null);
     const navigate = useNavigate();
-    const fetchAccount = async () => {
-        const account = await client.account();
-        setAccount(account);
-    };
-    useEffect(() => {
-        fetchAccount();
-    }, []);
     // const [account, setAccount] = useState(null);
     // const navigate = useNavigate();
     // const fetchAccount = async () => {
     //     const account = await client.account();
     //     setAccount(account);
     // };
+
+    // const fetchFollowers = async (userId) => {
+    //     const followers = await followsClient.findUsersFollowingUser(userId);
+    //     setFollowers(followers);
+    //   };
+
+      const getCurrentUser = async (userId) => {
+        const cu = await client.findUserById(userId);
+        setCurrentUser(cu);
+      };
 
     const [user, setUser] = useState(null);
 
@@ -34,6 +37,7 @@ function Profile() {
 
     useEffect(() => {
         fetchAccount();
+        getCurrentUser();
     }, []);
     
     const follow = async () => {
@@ -53,7 +57,6 @@ function Profile() {
         // }
     };
     const signedIn = account !== null;
-    const currentUser = true;
     return (
         <div className="content-container-profile">
             <div id="account-options">
@@ -65,7 +68,7 @@ function Profile() {
             <div>
                 <div id="profile-section">
                     <FaUserCircle className="fs-1" />
-                    <h3>{user && user.firstName + " " + user.lastName}</h3>
+                    <h3>{userId && userId.firstName + " " + userId.lastName}</h3>
                     {signedIn
                      ? ( <div>
                         <h4>Contact</h4>
