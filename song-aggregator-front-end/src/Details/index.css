@@ -1,5 +1,5 @@
 .song-info-card {
-    width: 50vh;
+    width: 60vh;
     height: 90vh;
     background-color: rgb(230, 215, 215);
     padding: 20px;
@@ -11,4 +11,12 @@
 .details-page-container {
     padding-top: 20px;
     padding-left: 30px;
+    padding-right: 30px;               
+}
+
+.review-card {
+    width: 100%;
+    height: 15vh;
+    background-color: rgb(247, 236, 236);
+    padding: 20px;
 }
