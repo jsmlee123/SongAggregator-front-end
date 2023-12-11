@@ -4,6 +4,12 @@
 }
 
 .card-container {
-    background-color: rgb(211, 197, 197);
-    
+    background-color: rgb(230, 215, 215);
+}
+
+.search-card {
+    width: 80vh;
+    height: 60vh;
+    background-color: rgb(230, 215, 215);
+    padding: 20px;
 }

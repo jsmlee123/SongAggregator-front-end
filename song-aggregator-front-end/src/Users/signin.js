@@ -2,6 +2,8 @@ import * as client from './client';
 import { useState } from 'react';
 import { isRouteErrorResponse, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './index.css';
 
 function Signin(props) {
   // credentials has username, password
@@ -19,7 +21,7 @@ function Signin(props) {
       await client.signin(credentials);
       isAuthenticated(true);
       localStorage.setItem('authentication', true);
-      navigate('/Profile');
+      navigate('/Home');
     } catch (error) {
       setError(error);
     }
@@ -56,6 +58,7 @@ function Signin(props) {
         Sign Up
       </Link>
 
+  
     </div>
   );
 }
