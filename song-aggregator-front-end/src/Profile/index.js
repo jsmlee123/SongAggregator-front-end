@@ -68,18 +68,21 @@ function Profile() {
                             <p>Must be signed in to see private/sensitive info.</p>
                         </div>)}
                     <h4>Following</h4>
-                    {/* <div className="list-group">
+                    <div>
+                        <ul>
                         {following.map((follows) => (
+                            <li>
                             <Link
-                                key={follows.followed._id}
+                                key={follows._id}
                                 className="list-group-item"
-                                to={`/project/users/${follows.followed._id}`}
+                                to={`/Profile/${follows._id}`}
                             >
-                                {follows.followed.firstName} {follows.followed.lastName} (@
-                                {follows.followed.username})
+                                {follows.firstName} {follows.lastName}
                             </Link>
+                            </li>
                         ))}
-                    </div> */}
+                        </ul>
+                    </div>
                     <h4>Liked Songs</h4>
                     <ul>
                         <li>

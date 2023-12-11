@@ -101,13 +101,13 @@ export const deleteUserFollowsUser = async (followerId, followedId) => {
 };
 export const findUsersFollowedByUser = async (userId) => {
   const response = await request.get(
-    `${BASE_API}/api/users/${userId}/following`
+    `${BASE_API}/api/follows/following/${userId}`
   );
   return response.data;
 };
 export const findUsersFollowingUser = async (userId) => {
   const response = await request.get(
-    `${BASE_API}/api/users/${userId}/followers`
+    `${BASE_API}/api/follows/followers/${userId}`
   );
   return response.data;
 };
