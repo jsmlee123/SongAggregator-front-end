@@ -19,7 +19,7 @@ function Signup(props) {
       const currentUser = await client.signup(credentials);
       isAuthenticated(true);
       localStorage.setItem('authentication', true);
-      navigate('/Profile');
+      navigate('/Home');
     } catch (error) {
       setError(error);
     }
