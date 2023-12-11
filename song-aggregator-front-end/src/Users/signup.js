@@ -29,7 +29,7 @@ function Signup(props) {
 
 
   return (
-    <div className='d-flex flex-column align-items-center justify-content-center login-container'>
+    <div className='d-flex flex-column align-items-center justify-content-center login-container overflow-auto'>
       <div className='d-flex flex-column align-items-center justify-content-center login-card rounded-5 overflow-auto'>
         {error && <div className="alert alert-danger">{error.message}</div>}
         <h1>Sign Up</h1>
@@ -80,7 +80,7 @@ function Signup(props) {
           <button onClick={signup} className="btn btn-secondary btn-lg me-4">
             Sign Up
           </button>
-          <Link to="/signin" className="btn btn-secondary btn-lg">
+          <Link to="/Login" className="btn btn-secondary btn-lg">
             Sign In
           </Link>
         </div>

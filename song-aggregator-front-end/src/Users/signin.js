@@ -27,8 +27,8 @@ function Signin(props) {
   };
 
   return (
-    <div className='d-flex flex-column align-items-center justify-content-center login-container'>
-      <div className='d-flex flex-column align-items-center justify-content-center login-card rounded-5'>
+    <div className='d-flex flex-column align-items-center justify-content-center login-container overflow-auto'>
+      <div className='d-flex flex-column align-items-center justify-content-center login-card rounded-5 overflow-auto'>
         {error && <div className="alert alert-danger">{error.message}</div>}
         <h1>Signin</h1>
         <input
