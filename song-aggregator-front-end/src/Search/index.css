@@ -8,8 +8,10 @@
 }
 
 .search-card {
-    width: 80vh;
-    height: 60vh;
+    min-width: 30vh;
+    width: 40%;
+    height: 30%;
+    min-height: 60vh;
     background-color: rgb(230, 215, 215);
     padding: 20px;
 }

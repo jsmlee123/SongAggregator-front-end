@@ -42,7 +42,7 @@ function App() {
             <Route path="Results/:searchCriteria/*" element={<Results />} />
             <Route path='Details/:artistName/:songName'element={<Details />}/>
 
-            <Route path="signin" element={<Signin setAuthentication={setAuthentication} />} />
+            <Route path="Login" element={<Signin setAuthentication={setAuthentication} />} />
             <Route path="signup" element={<Signup setAuthentication={setAuthentication}/>} />
 
           </Routes>

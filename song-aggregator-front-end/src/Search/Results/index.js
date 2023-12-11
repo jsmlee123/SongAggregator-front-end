@@ -25,7 +25,7 @@ function Results() {
     
     return (
         <div className="container d-flex flex-column">
-            <div className="mt-2">
+            <div className="mt-4">
                 <SearchBar search={searchCriteria} callback={getSearchResults} />
                 <div className="ms-2 mt-2 mb-3">
                     <h5>
@@ -42,7 +42,9 @@ function Results() {
                             >
                                 <div className="d-flex flex-row card rounded-5 mt-1 card-container">
                                     <div className="card-body rounded-5 card-container">
-                                        {tracks[key].name} - {tracks[key].artist}
+                                        <span className="">
+                                            {tracks[key].name} - {tracks[key].artist}
+                                        </span>
                                         <div className="float-end me-5">
                                             Listeners: {tracks[key].listeners}
                                         </div>

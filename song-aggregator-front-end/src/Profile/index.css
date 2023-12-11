@@ -100,3 +100,18 @@
     margin-top: 110px;
     margin-right: 10px;
 }
+
+.all-users-card {
+    width: 80%;
+    height: 80%;
+    background-color: rgb(230, 215, 215);
+    padding: 20px;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.all_users_view_card {
+    background-color: rgb(247, 236, 236);
+    padding-left: 50px;
+    padding-top: 20px;
+}
