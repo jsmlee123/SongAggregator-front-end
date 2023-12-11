@@ -12,12 +12,15 @@ function Profile() {
     const navigate = useNavigate();
     const [following, setFollowing] = useState([]);
     const [likedSongs, setLikedSongs] = useState([]);
+    const [artistSongs, setArtistSongs] = useState([]);
 
     const getCurrentUser = async (userId) => {
         const cu = await client.findUserById(userId);
         setCurrentUser(cu);
         fetchFollowing(userId);
         fetchLikedSongs(userId);
+        fetchArtistSongs(userId);
+        console.log(artistSongs);
     };
 
     const follow = async () => {
@@ -39,6 +42,12 @@ function Profile() {
     const fetchLikedSongs = async (userId) => {
         const liked = await client.findSongsLikedByUser(userId);
         setLikedSongs(liked);
+    }
+
+    const fetchArtistSongs = async (userId) => {
+        const songs = await client.findAllSongsByArtist(userId);
+        setArtistSongs(songs);
+        console.log(songs);
     }
 
     useEffect(() => {
@@ -109,14 +118,14 @@ function Profile() {
                             : <div>
                                 <h4>Songs</h4>
                                 <ul>
-                                    {likedSongs.map((song) => (
+                                    {artistSongs.map((song) => (
                                     <li key={song._id}>
                                     <Link
                                         key={song._id}
                                         className="list-group-item"
                                         to={`/Details/${song.ArtistName}/${song.SongName}`}
                                     >
-                                        {song.SongName} by {song.ArtistName}
+                                        {song.SongName}
                                     </Link>
                                     </li>
                                     ))}

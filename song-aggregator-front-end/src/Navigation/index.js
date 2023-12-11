@@ -17,7 +17,7 @@ function NavBar() {
     
     useEffect(() => {
         fetchAccount();
-    }, []);
+    }, [user]);
 
     const profileLink = (user == null ? "AllUsers" : "Profile/" + user._id);
 

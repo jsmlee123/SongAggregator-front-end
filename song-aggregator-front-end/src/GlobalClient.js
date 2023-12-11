@@ -31,6 +31,11 @@ export const findSong = async (artistName, songName) => {
   return response.data;
 }
 
+export const findAllSongsByArtist = async (uid) => {
+  const response = await axios.get(`${BASE_API}/api/artist/songs/${uid}`);
+  return response.data;
+}
+
 export const findByUserName = async (userName) => {
     const response = await axios.get(`${USERS_API}/username/${userName}`);
     return response.data;
