@@ -52,6 +52,11 @@ export const createReview = async (review) => {
   return response.data;
 };
 
+export const deleteReview = async (rid) => {
+  const response = await axios.delete(`${REVIEW_API}/${rid}`);
+  return response.data;
+}
+
 export const findUserById = async (id) => {
   const response = await request.get(`${USERS_API}/${id}`);
   return response.data;

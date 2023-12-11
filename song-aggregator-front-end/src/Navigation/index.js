@@ -14,9 +14,11 @@ function NavBar() {
         const usr = await client.account();
         setUser(usr);
     };
+    
     useEffect(() => {
         fetchAccount();
     }, []);
+
     const profileLink = (user == null ? "AllUsers" : "Profile/" + user._id);
 
     const links = [
@@ -54,6 +56,7 @@ function NavBar() {
                     className={`text-decoration-none text-center text-info ${
                         pathname.includes(link) && "active"
                     }`}
+                    onClick={fetchAccount}
                 >
                     <div className={` ${isActive(link) && "active"}`}>
                         {linksToIconsMap[link]}

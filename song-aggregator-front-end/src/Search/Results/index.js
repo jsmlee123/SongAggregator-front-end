@@ -27,6 +27,11 @@ function Results() {
         <div className="container d-flex flex-column">
             <div className="mt-2">
                 <SearchBar search={searchCriteria} callback={getSearchResults} />
+                <div className="ms-2 mt-2 mb-3">
+                    <h5>
+                        Showing {tracks.length} Results -
+                    </h5>
+                </div>
                 <div className="d-flex flex-column flex-shrink-1">
                     {Object.keys(tracks).map((key) => {
                         return (

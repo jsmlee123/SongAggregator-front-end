@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { fetchSong } from "./client";
 import { Link, useLocation } from "react-router-dom";
-import { account, addSong, createLike, createReview, deleteLike, findByUserName, findLikeByUserSong, findReviewsBySongID, findSong, findUserFromReviewId, findUserLikesBySong } from "../GlobalClient";
+import { account, addSong, createLike, createReview, deleteLike, deleteReview, findByUserName, findLikeByUserSong, findReviewsBySongID, findSong, findUserFromReviewId, findUserLikesBySong } from "../GlobalClient";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 
@@ -57,6 +57,11 @@ function Details() {
                 });
             }
         });
+    };
+
+    const deleteRev = async (rid) => {
+        deleteReview(rid)
+            .then(() => fetchReviews(localTrack._id));
     }
 
     const fetchAccount = async () => {
@@ -82,7 +87,9 @@ function Details() {
     const submitReview = async () => {
         createReview({review: userReview, UserId: user._id, SongId: localTrack._id})
             .then(() => fetchReviews(localTrack._id));
-    }
+    };
+
+    
 
     
     useEffect(() => {
@@ -141,9 +148,9 @@ function Details() {
             </div>
 
             <div className="d-flex flex-column card song-info-card rounded-4 ms-5 ">
-                <h2>
+                <h3>
                     Reviews
-                </h2>
+                </h3>
                 <div className="overflow-auto">
                     {
                         reviews.map((rev,index) => {
@@ -154,7 +161,7 @@ function Details() {
                                 <div>
                                     {rev.review}
                                 </div>
-                                <div>
+                                <div className="d-flex flex-row justify-content-between">
                                     <Link
                                         key={rev._id}
                                         to={`/Profile/${rev.user._id}`}
@@ -162,6 +169,15 @@ function Details() {
                                     >   
                                         {"- " + rev.user.firstName +" " + rev.user.lastName}
                                     </Link>
+                                    { user && rev.user._id === user._id &&
+                                        <button 
+                                            type="button" 
+                                            className={`btn mt-2 btn-danger `}
+                                            onClick={() => deleteRev(rev._id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    }
                                 </div>
                             </div>);
                         })
@@ -188,9 +204,9 @@ function Details() {
                     </div>
                 }
                 <div className="mt-3">
-                    <h4>
+                    <h3>
                         Liked By {userLikes.length} People
-                    </h4>
+                    </h3>
                     <div className="likes-card overflow-auto rounded-5">
                         {userLikes.map((userLike) => (
                             <div>
@@ -206,9 +222,9 @@ function Details() {
                     </div>
                     {user && 
                         <div className="mt-4">
-                            <h4>
+                            <h3>
                                 Like/Unlike Song
-                            </h4>
+                            </h3>
                             <button 
                                 type="button" 
                                 className={`btn mt-2 ${isSongLiked ?  "btn-danger" : "btn-success"}`}

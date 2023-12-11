@@ -37,7 +37,7 @@ function Profile() {
     useEffect(() => {
         fetchAccount();
         getCurrentUser(userId);
-    }, []);
+    }, [userId]);
 
     const date = currentUser && currentUser.dob ? currentUser.dob.substring(0, 10) : "unknown";
     const editProfile = currentUser && user && currentUser._id == user._id;
