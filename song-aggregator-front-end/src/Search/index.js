@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./index.css"
 import SearchBar from "./SearchBar";
 import '../global.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Search() {
 
@@ -9,13 +10,16 @@ function Search() {
     const SEARCH_ICON_URL = "https://cdn-icons-png.flaticon.com/512/482/482631.png"
     return (
         <div className="d-flex flex-column align-items-center justify-content-center search-bar-container ">
-            <div className="d-flex flex-row align-items-center justify-content-center mb-3">
-                <img src={SEARCH_ICON_URL}
-                 className="card-img" alt="..."></img>
-                <img src={ICON_URL}
-                 className="card-img" alt="..."></img>
+            <div className="d-flex flex-column align-items-center justify-content-center search-card rounded-5">
+                <div className="d-flex flex-row align-items-center justify-content-center mb-3">
+                    <img src={SEARCH_ICON_URL}
+                    className="card-img" alt="..."></img>
+                    <img src={ICON_URL}
+                    className="card-img" alt="..."></img>
+                </div>
+                <SearchBar search={''}/>
             </div>
-            <SearchBar search={''}/>
+            
         </div>
         
     );
