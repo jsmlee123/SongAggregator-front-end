@@ -41,6 +41,11 @@ export const addSong = async (song) => {
     return response.data;
 };
 
+export const findSongsLikedByUser = async (uid) => {
+  const response = await axios.get(`${SONG_API}/users/likes/${uid}`)
+  return response.data;
+}
+
 export const findReviewsBySongID = async (sid) => {
   const response = await axios.get(`${REVIEW_API}/song/${sid}`);
 

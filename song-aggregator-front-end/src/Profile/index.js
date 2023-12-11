@@ -11,11 +11,13 @@ function Profile() {
     const [currentUser, setCurrentUser] = useState(null);
     const navigate = useNavigate();
     const [following, setFollowing] = useState([]);
+    const [likedSongs, setLikedSongs] = useState([]);
 
     const getCurrentUser = async (userId) => {
         const cu = await client.findUserById(userId);
         setCurrentUser(cu);
         fetchFollowing(userId);
+        fetchLikedSongs(userId);
     };
 
     const follow = async () => {
@@ -34,6 +36,11 @@ function Profile() {
         setUser(usr);
     };
 
+    const fetchLikedSongs = async (userId) => {
+        const liked = await client.findSongsLikedByUser(userId);
+        setLikedSongs(liked);
+    }
+
     useEffect(() => {
         fetchAccount();
         getCurrentUser(userId);
@@ -42,6 +49,7 @@ function Profile() {
     const date = currentUser && currentUser.dob ? currentUser.dob.substring(0, 10) : "unknown";
     const editProfile = currentUser && user && currentUser._id == user._id;
     const editProfileLink = "/EditProfile/" + userId;
+    const isListener = currentUser && currentUser.role == "LISTENER";
 
     return (
         <div className="content-container-profile">
@@ -70,27 +78,51 @@ function Profile() {
                     <h4>Following</h4>
                     <div>
                         <ul>
-                        {following.map((follows) => (
-                            <li>
-                            <Link
-                                key={follows._id}
-                                className="list-group-item"
-                                to={`/Profile/${follows._id}`}
-                            >
-                                {follows.firstName} {follows.lastName}
-                            </Link>
-                            </li>
-                        ))}
+                            {following.map((follows) => (
+                                <li key={follows._id}>
+                                    <Link
+                                        key={follows._id}
+                                        className="list-group-item"
+                                        to={`/Profile/${follows._id}`}
+                                    >
+                                        {follows.firstName} {follows.lastName}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
+                        {isListener ? <div>
+                            <h4>Liked Songs</h4>
+                            <ul>
+                                {likedSongs.map((song) => {
+                                    <li>
+                                    <Link
+                                        key={song._id}
+                                        className="list-group-item"
+                                        to={`Details/${song.ArtistName}/${song.SongName}`}
+                                    >
+                                        {song.SongName} by {song.ArtistName}
+                                    </Link>
+                                    </li>
+                                    })}
+                            </ul>
+                        </div>
+                            : <div>
+                                <h4>Songs</h4>
+                                <ul>
+                                    {likedSongs.map((song) => (
+                                    <li key={song._id}>
+                                    <Link
+                                        key={song._id}
+                                        className="list-group-item"
+                                        to={`/Details/${song.ArtistName}/${song.SongName}`}
+                                    >
+                                        {song.SongName} by {song.ArtistName}
+                                    </Link>
+                                    </li>
+                                    ))}
+                                </ul>
+                            </div>}
                     </div>
-                    <h4>Liked Songs</h4>
-                    <ul>
-                        <li>
-                            <FaLink />
-                            <a href="https://www.youtube.com/webdevtv">Youtube</a>
-                            <FaExternalLinkSquareAlt />
-                        </li>
-                    </ul>
                 </div>
                 <div className="edit-profile-button">
                     {user && (<button className="btn btn-success" onClick={follow}>
