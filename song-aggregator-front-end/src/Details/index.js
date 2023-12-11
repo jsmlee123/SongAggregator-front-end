@@ -167,7 +167,11 @@ function Details() {
                                         to={`/Profile/${rev.user._id}`}
                                         className={`text-decoration-none text-center text-info text-dark`}
                                     >   
-                                        {"- " + rev.user.firstName +" " + rev.user.lastName}
+                                        {"- " + rev.user.username +" "} 
+                                        <span className="text-secondary">
+                                            {rev.user.firstName + " " + rev.user.lastName}
+                                        </span>
+
                                     </Link>
                                     { user && rev.user._id === user._id &&
                                         <button 
@@ -215,7 +219,12 @@ function Details() {
                                     to={`/Profile/${userLike._id}`}
                                     className={`text-decoration-none text-center text-info text-dark`}
                                 >                           
-                                    {userLike.firstName + " " + userLike.lastName}
+                                    { userLike.username +" "} 
+                                    <span className="text-secondary">
+                                        {userLike.firstName + " " + userLike.lastName}
+                                    </span>
+                                    
+                                    
                                 </Link>
                             </div>
                         ))}

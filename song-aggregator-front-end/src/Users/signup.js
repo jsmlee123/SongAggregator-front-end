@@ -10,6 +10,8 @@ function Signup(props) {
   const [credentials, setCredentials] = useState({
     username: '',
     password: '',
+    lastName: '',
+    firstName: '',
     role: 'LISTENER'
   });
   const navigate = useNavigate();
@@ -28,22 +30,40 @@ function Signup(props) {
 
   return (
     <div className='d-flex flex-column align-items-center justify-content-center login-container'>
-      <div className='d-flex flex-column align-items-center justify-content-center login-card rounded-5'>
+      <div className='d-flex flex-column align-items-center justify-content-center login-card rounded-5 overflow-auto'>
         {error && <div className="alert alert-danger">{error.message}</div>}
         <h1>Sign Up</h1>
         <input
           type="text"
           className="form-control w-75"
-          placeholder='username'
+          placeholder='Username'
           value={credentials.username}
           onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
         />
         <input
-          type="password"
+          type="Password"
           className="form-control w-75 mt-2"
-          placeholder='password'
+          placeholder='Password'
           value={credentials.password}
           onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+        />
+        <input
+          placeholder='First Name'
+          type="text"
+          className="form-control w-75 mt-2"
+          value={credentials.firstName}
+          onChange={(e) =>
+            setCredentials({ ...credentials, firstName: e.target.value })
+          }
+        />
+        <input
+          placeholder='Last Name'
+          type="text"
+          className="form-control w-75 mt-2"
+          value={credentials.lastName}
+          onChange={(e) =>
+            setCredentials({ ...credentials, lastName: e.target.value })
+          }
         />
       
         <h5>Role: </h5>

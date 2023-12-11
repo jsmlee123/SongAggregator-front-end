@@ -64,7 +64,7 @@ function Profile() {
         <div className="content-container-profile">
             <div id="account-options">
                 <div className="profile-header">
-                    <h3> <FaGripLines className='text-light' />{currentUser && currentUser.firstName + " " + currentUser.lastName}'s Profile </h3>
+                    <h3> <FaGripLines className='text-light' />{currentUser && currentUser.username}'s Profile </h3>
                 </div>
                 <hr className="hr-line" />
             </div>
