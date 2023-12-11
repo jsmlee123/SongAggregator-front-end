@@ -10,6 +10,7 @@ import Profile from './Profile';
 import Details from './Details';
 
 import Signin from './Users/signin';
+import Signup from './Users/signup';
 import {useState } from 'react';
 
 //testing authentication
@@ -40,6 +41,7 @@ function App() {
             <Route path='Details/:artistName/:songName'element={<Details />}/>
 
             <Route path="signin" element={<Signin setAuthentication={setAuthentication} />} />
+            <Route path="signup" element={<Signup setAuthentication={setAuthentication}/>} />
 
           </Routes>
         </div>

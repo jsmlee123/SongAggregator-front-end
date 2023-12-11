@@ -11,12 +11,13 @@ function Signin(props) {
   });
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  const { isAuthenticated } = props;
+  const isAuthenticated = props.setAuthentication;
 
   // navigates to the account page after signin
   const signin = async () => {
     try {
       await client.signin(credentials);
+      isAuthenticated(true);
       localStorage.setItem('authentication', true);
       navigate('/Profile');
     } catch (error) {
@@ -51,7 +52,7 @@ function Signin(props) {
         Sign In
       </button>
 
-      <Link to="/project/signup" className="btn btn-primary">
+      <Link to="/signup" className="btn btn-primary">
         Sign Up
       </Link>
 
