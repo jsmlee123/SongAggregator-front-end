@@ -7,22 +7,27 @@ import * as client from '../GlobalClient';
 
 function Profile() {
     const { userId } = useParams();
-    const [ currentUser, setCurrentUser ] = useState(null);
+    const [user, setUser] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
     const navigate = useNavigate();
-    // const [account, setAccount] = useState(null);
-    // const navigate = useNavigate();
+    const [following, setFollowing] = useState([]);
 
-    // const fetchFollowers = async (userId) => {
-    //     const followers = await followsClient.findUsersFollowingUser(userId);
-    //     setFollowers(followers);
-    //   };
-
-      const getCurrentUser = async (userId) => {
+    const getCurrentUser = async (userId) => {
         const cu = await client.findUserById(userId);
         setCurrentUser(cu);
-      };
+        fetchFollowing(userId);
+    };
 
-    const [user, setUser] = useState(null);
+    const follow = async () => {
+        await client.createUserFollowsUser(user._id, currentUser._id);
+    };
+    const fetchFollowing = async (userId) => {
+        const following = await client.findUsersFollowedByUser(userId);
+        setFollowing(following);
+    };
+    const unfollow = async () => {
+        await client.deleteUserFollowsUser(user._id, currentUser._id);
+    };
 
     const fetchAccount = async () => {
         const usr = await client.account();
@@ -33,24 +38,11 @@ function Profile() {
         fetchAccount();
         getCurrentUser(userId);
     }, []);
-    
-    const follow = async () => {
-        // try {
-        //   await client.signup(credentials);
-        //   navigate("/project/account");
-        // } catch (err) {
-        //   setError(err.response.data.message);
-        // }
-    };
-    const unfollow = async () => {
-        // try {
-        //   await client.signup(credentials);
-        //   navigate("/project/account");
-        // } catch (err) {
-        //   setError(err.response.data.message);
-        // }
-    };
-    
+
+    const date = currentUser && currentUser.dob ? currentUser.dob.substring(0, 10) : "unknown";
+    const editProfile = currentUser && user && currentUser._id == user._id;
+    const editProfileLink = "/EditProfile/" + userId;
+
     return (
         <div className="content-container-profile">
             <div id="account-options">
@@ -64,25 +56,30 @@ function Profile() {
                     <FaUserCircle className="fs-1" />
                     <h3>{currentUser && currentUser.firstName + " " + currentUser.lastName}</h3>
                     {user
-                     ? ( <div>
-                        <h4>Contact</h4>
-                    <p>Email: annunziatio.jose@gmail.com</p>
-                    <h4>Biography</h4>
-                    <p>Born on: 01/01/2020</p> 
-                    <p>Role: Listener</p>
-                    </div>)
-                    :(<div className='warning'>
-                        <h4> WARNING!</h4>
-                        <p>Must be signed in to see private/sensitive info.</p>
-                         </div>) }
+                        ? (<div>
+                            <h4>Contact</h4>
+                            <p>Email: {currentUser && currentUser.email}</p>
+                            <h4>Biography</h4>
+                            <p>Born on: {date}</p>
+                            <p>Role: {currentUser && currentUser.role}</p>
+                        </div>)
+                        : (<div className='warning'>
+                            <h4> WARNING!</h4>
+                            <p>Must be signed in to see private/sensitive info.</p>
+                        </div>)}
                     <h4>Following</h4>
-                    <ul>
-                        <li>
-                            <FaLink />
-                            <a href="https://www.youtube.com/webdevtv">Youtube</a>
-                            <FaExternalLinkSquareAlt />
-                        </li>
-                    </ul>
+                    {/* <div className="list-group">
+                        {following.map((follows) => (
+                            <Link
+                                key={follows.followed._id}
+                                className="list-group-item"
+                                to={`/project/users/${follows.followed._id}`}
+                            >
+                                {follows.followed.firstName} {follows.followed.lastName} (@
+                                {follows.followed.username})
+                            </Link>
+                        ))}
+                    </div> */}
                     <h4>Liked Songs</h4>
                     <ul>
                         <li>
@@ -99,7 +96,7 @@ function Profile() {
                     {user && (<button className="btn btn-danger" onClick={unfollow}>
                         Unfollow
                     </button>)}
-                    {currentUser && (<Link to="/EditProfile" className="btn btn-secondary">
+                    {editProfile && (<Link to={editProfileLink} className="btn btn-secondary">
                         <FaPencilAlt className='fa-rotate-270' />
                         Edit Profile</Link>)}
                     <Link to="/AllUsers" className="btn btn-info">

@@ -82,3 +82,37 @@ export const createLike = async (sid, uid) => {
   const response = await axios.post(`${LIKES_API}/${sid}/${uid}`);
   return response.data;
 };
+
+export const findAllFollows = async () => {
+  const response = await request.get(`${BASE_API}/follows/api`);
+  return response.data;
+};
+export const createUserFollowsUser = async (followerId, followedId) => {
+  const response = await request.post(
+    `${BASE_API}/api/users/${followerId}/follows/${followedId}`
+  );
+  return response.data;
+};
+export const deleteUserFollowsUser = async (followerId, followedId) => {
+  const response = await request.delete(
+    `${BASE_API}/api/users/${followerId}/follows/${followedId}`
+  );
+  return response.data;
+};
+export const findUsersFollowedByUser = async (userId) => {
+  const response = await request.get(
+    `${BASE_API}/api/users/${userId}/following`
+  );
+  return response.data;
+};
+export const findUsersFollowingUser = async (userId) => {
+  const response = await request.get(
+    `${BASE_API}/api/users/${userId}/followers`
+  );
+  return response.data;
+};
+
+export const updateUser = async (id, user) => {
+  const response = await request.put(`${USERS_API}/${id}`, user);
+  return response.data;
+};

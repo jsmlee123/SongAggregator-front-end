@@ -34,7 +34,7 @@ function App() {
             <Route path="/" element={<Navigate to="Home" />} />
             <Route path="Home" element={<Home />} />
             <Route path="Profile/:userId" element={<Profile />} />
-            <Route path="EditProfile" element={<EditProfile />} />
+            <Route path="EditProfile/:userId" element={<EditProfile />} />
             <Route path="AllUsers" element={<AllUsers />} />
             <Route path="Search" element={<Search />} />
             <Route path="Results/:searchCriteria/*" element={<Results />} />
