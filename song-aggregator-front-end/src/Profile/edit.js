@@ -42,7 +42,8 @@ function EditProfile() {
     const profileLink = "/Profile/" + userId;
 
     return (
-        <div className="content-container-profile">
+        <div> {user != null ? 
+            <div className="content-container-profile">
             <div class="profile-section">
                 <FaUserCircle className='fs-1'/>
             <div class="mb-3">
@@ -76,6 +77,8 @@ function EditProfile() {
                     Cancel Editing</Link>
             </div>
         </div>
+        </div>
+        : <h1>Must Be Signed In To Edit</h1>}
         </div>
     )
 }
