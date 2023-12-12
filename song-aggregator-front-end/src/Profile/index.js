@@ -106,7 +106,7 @@ function Profile() {
                                         <Link
                                             key={song._id}
                                             className="list-group-item"
-                                            to={`Details/${song.ArtistName}/${song.SongName}`}
+                                            to={`/Details/${song.ArtistName}/${song.SongName}`}
                                         >
                                             {song.SongName} by {song.ArtistName}
                                         </Link>
@@ -121,7 +121,7 @@ function Profile() {
                                             <Link
                                                 key={song._id}
                                                 className="list-group-item"
-                                                to={`Details/${song.ArtistName}/${song.SongName}`}
+                                                to={`/Details/${song.ArtistName}/${song.SongName}`}
                                             >
                                                 {song.SongName}
                                             </Link>
