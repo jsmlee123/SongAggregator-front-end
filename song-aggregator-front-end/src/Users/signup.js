@@ -4,7 +4,9 @@ import * as client from './client';
 import { Link } from "react-router-dom";
 
 function Signup(props) {
-  const isAuthenticated = props.setAuthentication;
+
+  const dummyUser = {props};
+ 
 
   const [error, setError] = useState(null);
   const [credentials, setCredentials] = useState({
@@ -19,8 +21,6 @@ function Signup(props) {
   const signup = async () => {
     try {
       const currentUser = await client.signup(credentials);
-      isAuthenticated(true);
-      localStorage.setItem('authentication', true);
       navigate('/Home');
     } catch (error) {
       setError(error);

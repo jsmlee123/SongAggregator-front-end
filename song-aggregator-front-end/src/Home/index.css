@@ -1,0 +1,14 @@
+
+table {
+  border: 1px solid black;
+}
+
+table thead {
+  outline: 1px gray;
+}
+
+table td {
+  outline: 1px solid black;
+}
+
+

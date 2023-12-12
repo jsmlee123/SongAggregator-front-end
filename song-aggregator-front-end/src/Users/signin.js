@@ -6,6 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
 function Signin(props) {
+
+  const dummyUser = {props};
+ 
+
   // credentials has username, password
   const [credentials, setCredentials] = useState({
     username: '',
@@ -13,13 +17,12 @@ function Signin(props) {
   });
   const navigate = useNavigate();
   const [error, setError] = useState('');
-  const { isAuthenticated } = props;
+
 
   // navigates to the account page after signin
   const signin = async () => {
     try {
       await client.signin(credentials);
-      localStorage.setItem('authentication', true);
       navigate('/Home');
     } catch (error) {
       setError(error);
