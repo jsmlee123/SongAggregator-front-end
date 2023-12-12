@@ -70,7 +70,7 @@ function NavBar() {
                     className={`text-decoration-none text-center text-info ${
                         pathNameContainsLink(link) && "active"
                     }`}
-                    onClick={fetchAccount}
+                    onMouseMove={fetchAccount}
                 >
                     <div className={` ${pathNameContainsLink(link) && "active"}`}>
                         {linksToIconsMap[link]}
