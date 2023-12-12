@@ -63,10 +63,10 @@ function AddSong() {
         </div>
         <div className="edit-profile-button">
             <div className="float-end">
-            <button onClick={addSong} className="btn btn-success">
+            <button onClick={addSong} className="btn btn-success ms-2">
                     <FaPencilAlt className='fa-rotate-270'/>
                     Save Changes</button>
-                <Link to={profileLink} className="btn btn-secondary">
+                <Link to={profileLink} className="btn btn-secondary ms-2">
                     <FaPencilAlt className='fa-rotate-270'/>
                     Cancel Editing</Link>
             </div>
