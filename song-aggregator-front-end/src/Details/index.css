@@ -28,3 +28,7 @@
     background-color: rgb(247, 236, 236);
     padding: 20px;
 }
+
+.submit-review {
+    resize: none;
+}

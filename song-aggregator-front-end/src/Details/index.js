@@ -189,12 +189,12 @@ function Details() {
                 </div>
             </div>
             
-            <div className="d-flex flex-column card song-info-card rounded-4 ms-5 ">
+            <div className="d-flex flex-column card song-info-card rounded-4 ms-5 overflow-auto">
                 {user && 
                     <div>
                         <h4>Write a Review</h4>
                         <textarea 
-                            className="form-control" 
+                            className="form-control submit-review " 
                             id="reviewFormSubmission" 
                             rows="5"
                             onChange={(e) => setUserReview(e.target.value)}/>
