@@ -14,6 +14,7 @@ import AllUsers from './Profile/allUsers';
 import Signin from './Users/signin';
 import Signup from './Users/signup';
 import {useState } from 'react';
+import AddSong from './Profile/addSong';
 
 //testing authentication
 
@@ -38,6 +39,7 @@ function App() {
             <Route path="Profile/:userId" element={<Profile />} />
             <Route path="EditProfile/:userId" element={<EditProfile />} />
             <Route path="AllUsers" element={<AllUsers />} />
+            <Route path="AddSong/:userId" element = {<AddSong/>} />
             <Route path="Search" element={<Search />} />
             <Route path="Results/:searchCriteria/*" element={<Results />} />
             <Route path='Details/:artistName/:songName'element={<Details />}/>
