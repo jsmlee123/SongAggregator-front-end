@@ -14,7 +14,7 @@ function AddSong() {
       const getCurrentUser = async (userId) => {
         const cu = await client.findUserById(userId);
         setCurrentUser(cu);
-        const artistName = cu && cu.firstName + " " + cu.lastName;
+        const artistName = cu && cu.username;
         const artistId = cu && cu._id;
         setSong({ ...song, ArtistName: artistName, ArtistId: artistId });
       };

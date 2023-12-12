@@ -140,7 +140,17 @@ function Details() {
                     {localTrack.SongName}
                 </h4>
                 <h5>
-                    {localTrack.ArtistName /* conditionally make think link to artist page if possible*/}
+                    { artist ? 
+                        <Link
+                            key={"ArtistPF"}
+                            to={`/Profile/${artist._id}`}
+                            className={`text-decoration-none text-center text-info text-dark`}
+                        > 
+                            {localTrack.ArtistName}
+                        </Link>
+                        :
+                        localTrack.ArtistName
+                    }   
                 </h5>
                 <p>
                     {localTrack.SongDescription}
