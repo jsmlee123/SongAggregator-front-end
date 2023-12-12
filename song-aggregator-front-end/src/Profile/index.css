@@ -1,5 +1,5 @@
 .content-container-profile {
-    background-color: rgb(167, 147, 147);
+    /* background-color: rgb(167, 147, 147); */
     min-height: 100vh;
     height: 100%;
     margin-left: 20px;
@@ -38,6 +38,10 @@
 
 .warning {
     color: red;
+}
+
+.edit-container {
+    height: 100vh;
 }
 
 

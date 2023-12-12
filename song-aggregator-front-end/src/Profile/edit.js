@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../global.css'
 import react, { useState, useEffect } from "react";
-import { FaPencilAlt, FaUserCircle,  } from "react-icons/fa";
+import { FaPencilAlt, FaUserCircle} from "react-icons/fa";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import * as client from '../GlobalClient';
 
@@ -42,33 +42,35 @@ function EditProfile() {
     const profileLink = "/Profile/" + userId;
 
     return (
+        <div className="d-flex flex-column align-items-center justify-content-center search-bar-container ">
+            <div className="d-flex flex-column align-items-left justify-content-top all-users-card rounded-5">
         <div> {user != null ? 
-            <div className="content-container-profile">
+            <div className="content-container-edit-profile">
             <div class="profile-section">
                 <FaUserCircle className='fs-1'/>
             <div class="mb-3">
-                <label for="text-fields-firstName" class="form-label">First Name:</label>
+                <label htmlFor="text-fields-firstName" class="form-label">First Name:</label>
                 <input onChange={(e) => setUser({ ...user, firstName: e.target.value })}
                 id="text-fields-firstName" class="form-control" type="text" defaultValue={currentUser && currentUser.firstName} />
             </div>
             <div class="mb-3">
-                <label for="text-fields-lastName" class="form-label">Last Name:</label>
+                <label htmlFor="text-fields-lastName" class="form-label">Last Name:</label>
                 <input onChange={(e) => setUser({ ...user, lastName: e.target.value })}
                 id="text-fields-lastName" class="form-control" type="text" defaultValue={currentUser && currentUser.lastName} />
             </div>
             <div class="mb-3">
-                <label for="text-fields-email" class="form-label">Email:</label>
+                <label htmlFor="text-fields-email" class="form-label">Email:</label>
                 <input onChange={(e) => setUser({ ...user, email: e.target.value })}
                 id="text-fields-email" class="form-control" type="text" defaultValue={currentUser && currentUser.email} />
             </div>
             <div class="mb-3">
-                <label for="text-fields-dob" class="form-label">Date of Birth:</label>
+                <label htmlFor="text-fields-dob" class="form-label">Date of Birth:</label>
                 <input onChange={(e) => setUser({ ...user, dob: e.target.value })}
                 id="text-fields-dob" class="form-control" type="date" defaultValue={currentUser && currentUser.dob} />
             </div>
         </div>
-        <div class="edit-profile-button">
-            <div class="float-end">
+        <div className="edit-profile-button">
+            <div className="float-end">
             <button onClick={updateUser} class="btn btn-success">
                     <FaPencilAlt className='fa-rotate-270'/>
                     Save Changes</button>
@@ -79,6 +81,8 @@ function EditProfile() {
         </div>
         </div>
         : <h1>Must Be Signed In To Edit</h1>}
+        </div>
+        </div>
         </div>
     )
 }

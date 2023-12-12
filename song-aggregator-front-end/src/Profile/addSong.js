@@ -39,8 +39,10 @@ function AddSong() {
     const profileLink = "/Profile/" + userId;
 
     return (
+        <div className="d-flex flex-column align-items-center justify-content-center search-bar-container ">
+        <div className="d-flex flex-column align-items-left justify-content-top all-users-card rounded-5">
         <div> {user != null ? 
-            <div className="content-container-profile">
+            <div className="content-container-edit-profile">
             <div className="profile-section">
                 <FaUserCircle className='fs-1'/>
             <div className="mb-3">
@@ -71,6 +73,8 @@ function AddSong() {
         </div>
         </div>
         : <h1>Must Be Signed In To Add Song</h1>}
+        </div>
+        </div>
         </div>
     )
 }
