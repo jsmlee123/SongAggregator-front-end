@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import * as client from './client';
 import { Link } from "react-router-dom";
 
-function Signup(props) {
+import { setCurrentUser } from './reducer';
+import { useDispatch } from 'react-redux';
 
-  const dummyUser = {props};
- 
+function Signup() {
+
+  
+  const dispatch = useDispatch();
 
   const [error, setError] = useState(null);
   const [credentials, setCredentials] = useState({
@@ -20,7 +23,8 @@ function Signup(props) {
 
   const signup = async () => {
     try {
-      const currentUser = await client.signup(credentials);
+      const response = await client.signup(credentials);
+      dispatch(setCurrentUser(response));
       navigate('/Home');
     } catch (error) {
       setError(error);

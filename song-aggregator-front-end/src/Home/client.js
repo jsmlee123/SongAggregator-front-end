@@ -1,6 +1,6 @@
 export const apiKey = "300174397d5c23bd99ff6cf5a31e4b3e";
 
-// grabbing random albums? songs from last fm
+
 // testing anon user access to home page
 
 const apiUrl = `https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=disco&api_key=${apiKey}&format=json&limit=10`

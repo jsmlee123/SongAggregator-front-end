@@ -2,13 +2,15 @@ import * as client from './client';
 import { useState } from 'react';
 import { isRouteErrorResponse, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
-function Signin(props) {
+import { setCurrentUser } from './reducer';
 
-  const dummyUser = {props};
- 
+function Signin() {
+
+  const dispatch = useDispatch();
 
   // credentials has username, password
   const [credentials, setCredentials] = useState({
@@ -22,7 +24,8 @@ function Signin(props) {
   // navigates to the account page after signin
   const signin = async () => {
     try {
-      await client.signin(credentials);
+      const response = await client.signin(credentials);
+      dispatch(setCurrentUser(response));
       navigate('/Home');
     } catch (error) {
       setError(error);
