@@ -86,7 +86,7 @@ function Profile() {
                             </div>)}
                         <h4 >Following</h4>
                         <div>
-                            <div className='likes-card overflow-auto rounded-5 w-50 overflow-auto h-100'>
+                            <div className='follows-card  overflow-auto rounded-5 w-50 overflow-auto h-100'>
                                 {following.map((follows) => (
                                     <Link
                                         key={follows._id}
@@ -101,7 +101,7 @@ function Profile() {
                        
                             {isListener ? <div className='mt-3'>
                                 <h4 >Liked Songs</h4>
-                                <div className='likes-card overflow-auto rounded-5 w-50 overflow-auto h-100'>
+                                <div className='follows-card overflow-auto rounded-5 w-50 overflow-auto h-100'>
                                     {likedSongs.map((song) => (
                                         <Link
                                             key={song._id}
@@ -116,7 +116,7 @@ function Profile() {
                             </div>
                                 : <div className='mt-3'>
                                     <h4>Songs</h4>
-                                    <div className='likes-card overflow-auto rounded-5 w-50 h-100'>
+                                    <div className='follows-card overflow-auto rounded-5 w-50 h-100'>
                                         {artistSongs.map((song) => (
                                             <Link
                                                 key={song._id}

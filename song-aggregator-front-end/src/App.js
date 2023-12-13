@@ -19,6 +19,7 @@ import axios from 'axios';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import EditSong from './Details/editSong';
 
 //testing authentication
 
@@ -44,7 +45,7 @@ function App() {
                 path="Details/:artistName/:songName"
                 element={<Details />}
               />
-
+              <Route path='EditSong/:sid' element={<EditSong />} />
               <Route path="Login" element={<Signin />} />
               <Route path="signup" element={<Signup />} />
             </Routes>

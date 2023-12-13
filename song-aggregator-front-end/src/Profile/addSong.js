@@ -56,9 +56,14 @@ function AddSong() {
                 id="text-fields-songDescription" className="form-control" type="text"/>
             </div>
             <div className="mb-3">
-                <label htmlFor="text-fields-songURL" className="form-label">URL:</label>
+                <label htmlFor="text-fields-songURL" className="form-label">Song URL:</label>
                 <input onChange={(e) => setSong({ ...song, SongURL: e.target.value })}
                 id="text-fields-songURL" className="form-control" type="text" />
+            </div>
+            <div className="mb-3">
+                <label htmlFor="text-fields-imageURL" className="form-label">Image URL:</label>
+                <input onChange={(e) => setSong({ ...song, ImageURL: e.target.value })}
+                id="text-fields-imageURL" className="form-control" type="text" />
             </div>
         </div>
         <div className="edit-profile-button">

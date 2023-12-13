@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { fetchSong } from "./client";
 import { Link, useLocation } from "react-router-dom";
-import { account, addSong, createLike, createReview, deleteLike, deleteReview, findByUserName, findLikeByUserSong, findReviewsBySongID, findSong, findUserFromReviewId, findUserLikesBySong } from "../GlobalClient";
+import { account, addSong, createLike, createReview, deleteLike, deleteReview, deleteSng, findByUserName, findLikeByUserSong, findReviewsBySongID, findSong, findUserFromReviewId, findUserLikesBySong } from "../GlobalClient";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css'
 
@@ -20,6 +20,7 @@ function Details() {
     });
     const [userLikes, setUserLikes] = useState([]);
     const [isSongLiked, setIsSongLiked] = useState(false);
+    const navigate = useNavigate();
 
 
     const fetchIsUserLiked = async (sid) => {
@@ -62,6 +63,15 @@ function Details() {
     const deleteRev = async (rid) => {
         deleteReview(rid)
             .then(() => fetchReviews(localTrack._id));
+    };
+
+    const deleteSong = async () => {
+        deleteSng(localTrack._id)
+            .then(navigate("/Search"))
+    };
+
+    const editSong = async () => {
+        navigate(`/EditSong/${localTrack._id}`)
     }
 
     const fetchAccount = async () => {
@@ -89,7 +99,9 @@ function Details() {
             .then(() => fetchReviews(localTrack._id));
     };
 
-    
+    const isOwnSong = () => {
+        return (user && artist && user._id === artist._id);
+    };
 
     
     useEffect(() => {
@@ -131,13 +143,39 @@ function Details() {
     
     return (
         <div className="d-flex flex-row justify-content-between details-page-container">
-            <div className="d-flex flex-column card song-info-card rounded-4  overflow-auto">
+            <div className="d-flex flex-column card song-info-card rounded-4 overflow-auto">
                 {("ImageURL" in localTrack) && 
                     <img src={localTrack.ImageURL}
                         className="card-img-top" alt="..."></img>
                 }
                 <h4 className="font-weight-bold">
-                    {localTrack.SongName}
+                    <div>
+                        <span>{localTrack.SongName}</span>
+                        <div className="edit-song-buttons">
+                            {isOwnSong() && (
+                                <div>
+                                    <button 
+                                            type="button" 
+                                            className={`btn mt-2 btn-success `}
+                                            onClick={editSong}
+                                    >
+                                        Edit
+                                    </button>
+                                    <button 
+                                            type="button" 
+                                            className={`btn mt-2 btn-danger ms-2 `}
+                                            onClick={deleteSong}
+                                    >
+                                        Delete
+                                    </button>
+                                    
+                                </div>
+                                
+                            )}
+                        </div>
+                    </div>
+                   
+                    
                 </h4>
                 <h5>
                     { artist ? 

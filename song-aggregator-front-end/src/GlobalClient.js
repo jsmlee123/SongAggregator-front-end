@@ -31,6 +31,11 @@ export const findSong = async (artistName, songName) => {
   return response.data;
 }
 
+export const findSongById = async (sid) => {
+  const response = await axios.get(`${SONG_API}/${sid}`);
+  return response.data;
+}
+
 export const findAllSongsByArtist = async (uid) => {
   const response = await axios.get(`${BASE_API}/api/artist/songs/${uid}`);
   return response.data;
@@ -64,6 +69,16 @@ export const createReview = async (review) => {
 
 export const deleteReview = async (rid) => {
   const response = await axios.delete(`${REVIEW_API}/${rid}`);
+  return response.data;
+}
+
+export const deleteSng = async (sid) => {
+  const response = await axios.delete(`${SONG_API}/${sid}`);
+  return response.data;
+}
+
+export const updateSong = async (sid, song) => {
+  const response = await axios.put(`${SONG_API}/${sid}`, song);
   return response.data;
 }
 
