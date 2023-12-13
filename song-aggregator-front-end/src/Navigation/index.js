@@ -25,9 +25,9 @@ function NavBar() {
 
     const associatedLinks = {
         "Login": ["Login", "signup"] ,
-        "Profile": ["AllUsers", "Profile"],
+        "Profile": ["AllUsers", "Profile", "AddSong"],
         "Home": ["Home"],
-        "Search": ["Details", "Results", "Search"]
+        "Search": ["Details", "Results", "Search", "EditSong"]
     }
 
     const links = [
