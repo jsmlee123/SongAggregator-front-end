@@ -9,7 +9,7 @@ import * as client from '../GlobalClient';
 import { Link } from 'react-router-dom';
 
 function Home() {
-  const { currentUser } = useSelector((state) => state.user || {});
+  const [currentUser ,setCurrentUser] = useState(null);
 
   const [albums, setAlbums] = useState([]);
   const [songs, setSongs] = useState([]);
@@ -35,69 +35,78 @@ function Home() {
   const fetchReviews = async (userId) => {
     const reviews = await client2.fetchReviewByUser(userId);
     setReviews(reviews);
+    return reviews;
   };
 
-  const fetchSongInfo = async (id) => {
-    const response = await client2.fetchSongInfo(id);
-    const parsedData = [
-      {
-        SongName: response.SongName,
-        ArtistName: response.ArtistName,
-      },
-    ];
-    console.log(parsedData);
+  
+  const fetchAlbums = async () => {
+    const data = await client2.testFetchAlbums();
 
-    setReviewSong((prevState) => [...prevState, parsedData]);
+    const parsedData = data.albums.album.map((album, index) => ({
+      index: index + 1,
+      name: album.name,
+      artist: album.artist.name,
+    }));
+    setAlbums(parsedData);
   };
+
+  const fetchReviewSongs = async (reviews) => {
+    const revSongs = [];
+
+    for (const review of reviews) {
+      revSongs.push(await client2.fetchSongInfo(review.SongId));
+    }
+    return revSongs;
+  };
+
+
+  const fetchSongs = async () => {
+    const data = await client2.testFetchSongs();
+
+    const parsedData = data.tracks.track.map((track, index) => ({
+      index: index + 1,
+      name: track.name,
+      artist: track.artist.name,
+    }));
+
+    setSongs(parsedData);
+  };
+
+  const fetchSongsInfo = async (reviews) => {
+    fetchReviewSongs(reviews)
+      .then((songs) => setReviewSong(songs))
+  };
+
+  const fetchAccount = async () => {
+    const usr = await client.account();
+    setCurrentUser(usr);
+    return usr;
+  };
+
 
   useEffect(() => {
-    const fetchAlbums = async () => {
-      const data = await client2.testFetchAlbums();
-
-      const parsedData = data.albums.album.map((album, index) => ({
-        index: index + 1,
-        name: album.name,
-        artist: album.artist.name,
-      }));
-      setAlbums(parsedData);
-    };
-
-    const fetchSongs = async () => {
-      const data = await client2.testFetchSongs();
-
-      const parsedData = data.tracks.track.map((track, index) => ({
-        index: index + 1,
-        name: track.name,
-        artist: track.artist.name,
-      }));
-
-      setSongs(parsedData);
-    };
-
-    const fetchSongsInfo = async () => {
-      if (currentUser !== null && currentUser.role === 'LISTENER') {
-        reviews.map((review) => {
-          fetchSongInfo(review.SongId);
-        });
-      }
-    };
-
-    if (currentUser !== null && currentUser.role === 'LISTENER') {
-      fetchFollowing(currentUser._id);
-      fetchLikedSongs(currentUser._id);
-      fetchReviews(currentUser._id);
-    }
+    fetchAccount()
+      .then((usr) => {
+        if (usr) {
+          fetchFollowing(usr._id);
+          fetchLikedSongs(usr._id);
+          fetchReviews(usr._id)
+          .then((reviews) => fetchSongsInfo(reviews));
+          
+        }
+      })
+    
 
     fetchAlbums();
     fetchSongs();
-    fetchSongsInfo();
+    
 
     // console.log(reviewSong);
   }, []);
 
   return (
     <div className="d-flex flex-column overflow-auto">
-      {currentUser === null && (
+      {!currentUser && (
         <div className="table-container">
           Welcome{' '}
           {currentUser && currentUser.username
@@ -279,7 +288,12 @@ function Home() {
       {currentUser && currentUser.role === 'ARTIST' && (
         <div className="div-for-artist d-flex flex-column overflow-auto">
           Welcome {currentUser.username}
+          {reviewSong.map((song) => {
+            console.log(reviewSong)
+            return <div>{song.SongName}</div> ;
+          })}
         </div>
+        
       )}
     </div>
   );
