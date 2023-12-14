@@ -158,3 +158,8 @@ table td {
 
  
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+}
