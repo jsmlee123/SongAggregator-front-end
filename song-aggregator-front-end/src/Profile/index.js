@@ -60,7 +60,7 @@ function Profile() {
     const isListener = currentUser && currentUser.role == "LISTENER";
 
     return (
-        <div className="d-flex flex-column align-items-center justify-content-center profile-container ">
+        <div className="d-flex flex-column align-items-center justify-content-center profile-container overflow-hidden">
             <div className="d-flex flex-column align-items-left justify-content-center profile-card rounded-5 overflow-auto">
                 <div id="account-options">
                     <div className="profile-header">
