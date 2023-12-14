@@ -289,7 +289,6 @@ function Home() {
         <div className="div-for-artist d-flex flex-column overflow-auto">
           Welcome {currentUser.username}
           {reviewSong.map((song) => {
-            console.log(reviewSong)
             return <div>{song.SongName}</div> ;
           })}
         </div>

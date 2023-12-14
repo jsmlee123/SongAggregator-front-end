@@ -5,6 +5,7 @@ const request = axios.create({
 });
 
 
+
 export const BASE_API = "http://localhost:4000/api";
 export const USERS_API = `${BASE_API}/users`;
 
@@ -42,7 +43,7 @@ export const updateUser = async (user) => {
 };
 
 export const findAllUsers = async () => {
-  const response = await request.get(`${USERS_API}`);
+  const response = await axios.get(`${USERS_API}`);
   return response.data;
 };
 
@@ -52,7 +53,7 @@ export const createUser = async (user) => {
 };
 
 export const findUserById = async (id) => {
-  const response = await request.get(`${USERS_API}/${id}`);
+  const response = await axios.get(`${USERS_API}/${id}`);
   return response.data;
 };
 
