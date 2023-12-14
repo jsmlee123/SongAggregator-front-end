@@ -55,6 +55,7 @@ function Profile() {
 
     const date = currentUser && currentUser.dob ? currentUser.dob.substring(0, 10) : "unknown";
     const myProfile = currentUser && user && currentUser._id == user._id;
+    const amArtist = currentUser && user && currentUser._id == user._id && user.role == "ARTIST";
     const editProfileLink = "/EditProfile/" + userId;
     const addSongLink = "/AddSong/" + userId;
     const isListener = currentUser && currentUser.role == "LISTENER";
@@ -134,7 +135,7 @@ function Profile() {
                         {myProfile && (<Link to={editProfileLink} className="btn btn-secondary">
                             <FaPencilAlt className='fa-rotate-270' />
                             Edit Profile</Link>)}
-                        {myProfile && (<Link to={addSongLink} className="btn btn-secondary ms-2">
+                        {amArtist && (<Link to={addSongLink} className="btn btn-secondary ms-2">
                             <FaPlus />
                             Add Song</Link>)}    
                         {user && (<button className="btn btn-success ms-2" onClick={follow}>
