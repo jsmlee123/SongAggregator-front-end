@@ -100,7 +100,6 @@ function Home() {
         fetchReviews(usr._id).then((reviews) => fetchSongsInfo(reviews));
       }
       if (usr && usr.role === 'ARTIST') fetchArtistSongs(usr._id);
-
     });
 
     fetchAlbums();
@@ -154,7 +153,11 @@ function Home() {
                   {songs.map((song) => (
                     <tr key={song.index}>
                       <td>{song.index}</td>
-                      <td>{song.name}</td>
+                      <td>
+                        <a href={`#/Details/${song.artist}/${song.name}`}>
+                          {song.name}
+                        </a>
+                      </td>
                       <td>{song.artist}</td>
                     </tr>
                   ))}
@@ -294,7 +297,11 @@ function Home() {
                 {songs.map((song) => (
                   <tr key={song.index}>
                     <td>{song.index}</td>
-                    <td>{song.name}</td>
+                    <td>
+                      <a href={`#/Details/${song.artist}/${song.name}`}>
+                        {song.name}
+                      </a>
+                    </td>
                     <td>{song.artist}</td>
                   </tr>
                 ))}
@@ -358,7 +365,7 @@ function Home() {
                     ))}
                   </div>
 
-                <div className="grid-container">
+                  <div className="grid-container">
                     <div
                       className="follows2-card overflow-auto rounded-5"
                       style={{
@@ -394,7 +401,10 @@ function Home() {
                     >
                       <h4>My Songs</h4>
                       {artistSongs.map((song) => (
-                        song.SongName
+                        <span key={song._id}>
+                          {song.SongName + ' '}
+                          <br />
+                        </span>
                       ))}
                     </div>
                   </div>
@@ -435,7 +445,7 @@ function Home() {
                 </div>
               </div>
             </div>
-            <div className ="">
+            <div className="table-wrapper">
               <h2>Top 10 Songs!</h2>
               <table>
                 <thead>
@@ -449,7 +459,11 @@ function Home() {
                   {songs.map((song) => (
                     <tr key={song.index}>
                       <td>{song.index}</td>
-                      <td>{song.name}</td>
+                      <td>
+                        <a href={`#/Details/${song.artist}/${song.name}`}>
+                          {song.name}
+                        </a>
+                      </td>
                       <td>{song.artist}</td>
                     </tr>
                   ))}
