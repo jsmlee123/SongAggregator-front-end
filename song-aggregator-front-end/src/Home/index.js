@@ -108,265 +108,152 @@ function Home() {
   }, []);
 
   return (
-    <div className="d-flex flex-column">
-      {!currentUser && (
-        <div className="table-container">
-          <h5>
+    <div className="d-flex flex-column align-items-center justify-content-center search-bar-container">
+      
+      <div className="d-flex flex-row align-items-left justify-content-start all-users-card rounded-5">
+        <div className='d-flex flex-column me-5'>
+         <h1 className='mb-5'>
+            Song Aggregator
+         </h1>
+         <h2>
             {' '}
-            Welcome{' '}
+            Welcome back {' '}
             {currentUser && currentUser.username
               ? currentUser.username
-              : 'Anonymous'}{' '}
-          </h5>
-          <div className="tables-wrapper">
-            <div className="table-wrapper">
-              <h2>Top 10 Albums!</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Album</th>
-                    <th>Artist</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {albums.map((album) => (
-                    <tr key={album.index}>
-                      <td>{album.index}</td>
-                      <td>{album.name}</td>
-                      <td>{album.artist}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <div className="table-wrapper">
-              <h2>Top 10 Songs!</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Song</th>
-                    <th>Artist</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {songs.map((song) => (
-                    <tr key={song.index}>
-                      <td>{song.index}</td>
-                      <td>{song.name}</td>
-                      <td>{song.artist}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
-      {currentUser && currentUser.role === 'LISTENER' && (
-        <div className="div-for-listener d-flex flex-column overflow-auto">
-          <h5>Welcome {currentUser.username} </h5>
-          <div className="table-container">
-            <div className="d-flex">
-              <div className="table-wrapper">
-                <h2>Top 10 Albums!</h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Album</th>
-                      <th>Artist</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {albums.map((album) => (
-                      <tr key={album.index}>
-                        <td>{album.index}</td>
-                        <td>{album.name}</td>
-                        <td>{album.artist}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div className="flex-container">
-                  <div
-                    className="follows2-card overflow-auto rounded-5"
-                    style={{
-                      marginLeft: '30px',
-                      marginTop: '10px',
-                      width: '150%',
-                      height: '70%',
-                    }}
-                  >
-                    <h4>Following</h4>
-                    {following.map((follows) => (
-                      <Link
-                        key={follows._id}
-                        className="list-group-item"
-                        to={`/Profile/${follows._id}`}
-                      >
-                        <span className="text-dark">
-                          {follows.username + ' '}
-                        </span>
-                        <span className="text-secondary">
-                          {follows.firstName} {follows.lastName}
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-
-                  <div
-                    className="follows2-card overflow-auto rounded-5"
-                    style={{
-                      marginLeft: '30px',
-                      marginTop: '10px',
-                      width: '150%',
-                      height: '70%',
-                    }}
-                  >
-                    <h4>Liked Songs</h4>
-                    {likedSongs.map((song) => (
-                      <Link
-                        key={song._id}
-                        className="list-group-item"
-                        to={`/Details/${song.ArtistName}/${song.SongName}`}
-                      >
-                        <span style={{ color: 'blue' }}>
-                          {song.SongName} by
-                        </span>
-                        {' ' + song.ArtistName}
-                      </Link>
-                    ))}
-                  </div>
-
-                  <div
-                    className="follows2-card overflow-auto rounded-5"
-                    style={{
-                      marginLeft: '30px',
-                      marginTop: '10px',
-                      width: '150%',
-                      height: '70%',
-                    }}
-                  >
-                    <h4>My Reviews</h4>
-                    {reviews.map((review, index) => {
-                      const reviewIndex = index + 1;
-                      const songIndex =
-                        index < reviewSong.length
-                          ? index
-                          : reviewSong.length - 1;
-
-                      return (
-                        <div key={review.id}>
-                          {reviewIndex} {' "' + review.review + '" '} for song
-                          --
-                          {reviewSong && reviewSong[songIndex] ? (
-                            <span>
-                              {' ' + reviewSong[songIndex].SongName}
-                              {' by ' + reviewSong[songIndex].ArtistName}
-                            </span>
-                          ) : (
-                            <span>No song information</span>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="table-wrapper">
-            <h2>Top 10 Songs!</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Song</th>
-                  <th>Artist</th>
-                </tr>
-              </thead>
-              <tbody>
+              : 'Anonymous User'}{' '}!
+          </h2>
+          
+          <div className='d-flex flex-column top-ten-card align-items-start justify-items-start rounded-5 mt-4'>
+            <h2 className='mt-2'>Top 10 Current Songs!</h2>
+            <ol className='d-flex flex-grow-1 flex-column overflow-auto'>
                 {songs.map((song) => (
-                  <tr key={song.index}>
-                    <td>{song.index}</td>
-                    <td>{song.name}</td>
-                    <td>{song.artist}</td>
-                  </tr>
+                  <li key={song.index}>
+                    <Link
+                      key={"top_10_" + song._id}
+                      className="list-group-item mb-2"
+                      to={`/Details/${song.artist}/${song.name}`}
+                    >
+                      {song.name} by {song.artist}
+                    </Link>
+                  </li>
                 ))}
-              </tbody>
-            </table>
+            </ol>
           </div>
         </div>
+      {currentUser && currentUser.role === 'LISTENER' && (
+        <div className="div-for-listener d-flex flex-column ">
+          <div className="d-flex flex-column flex-grow-1">
+              <div
+                className="follows2-card rounded-5 ms-4 overflow-auto"
+              >
+                <h4>Following</h4>
+                <div className='d-flex flex-column overflow-auto'>
+                  {following.map((follows) => (
+                    <Link
+                      key={follows._id}
+                      className="list-group-item"
+                      to={`/Profile/${follows._id}`}
+                    >
+                      <span className="text-dark">
+                        {follows.username + ' '}
+                      </span>
+                      <span className="text-secondary">
+                        {follows.firstName} {follows.lastName}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+                
+              </div>
+
+              <div
+                className="info-card overflow-auto rounded-5 ms-4 mt-4"
+              >
+                <h4>Liked Songs</h4>
+                {likedSongs.map((song) => (
+                  <Link
+                    key={song._id}
+                    className="list-group-item"
+                    to={`/Details/${song.ArtistName}/${song.SongName}`}
+                  >
+                    
+                    {song.SongName} by {' ' + song.ArtistName}
+                  </Link>
+                ))}
+              </div>
+
+              <div
+                className="follows2-card overflow-auto rounded-5 mt-4 ms-4"
+                
+              >
+              <h4>My Reviews</h4>
+              <ul>
+                {reviews.map((review, index) => {
+                  const reviewIndex = index + 1;
+                  const songIndex =
+                    index < reviewSong.length
+                      ? index
+                      : reviewSong.length - 1;
+
+                  return (
+                    <li key={review.id} className=''>                         
+                      
+                      {reviewSong && reviewSong[songIndex] ? (
+                        <Link
+                          key={"Review_" + reviewSong[songIndex].ArtistName + "_" + reviewSong[songIndex].SongName}
+                          className="list-group-item"
+                          to={`/Details/${reviewSong[songIndex].ArtistName}/${reviewSong[songIndex].SongName}`}
+                        >
+                          {' "' + review.review + '" '}
+                          --
+                          {' ' + reviewSong[songIndex].SongName}
+                          {' by ' + reviewSong[songIndex].ArtistName}
+                        </Link>
+                      ) : (
+                        <span>No song information</span>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        </div>
+          
+        
       )}
       {currentUser && currentUser.role === 'ARTIST' && (
-        <div className="div-for-listener d-flex flex-column overflow-auto">
-          <h5>Welcome {currentUser.username} </h5>
+        <div className="div-for-listener d-flex flex-column">
           <div className="table-container">
             <div className="d-flex">
-              <div className="table-wrapper">
-                <h2>Top 10 Albums!</h2>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>#</th>
-                      <th>Album</th>
-                      <th>Artist</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {albums.map((album) => (
-                      <tr key={album.index}>
-                        <td>{album.index}</td>
-                        <td>{album.name}</td>
-                        <td>{album.artist}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-
               <div style={{ display: 'flex', flexDirection: 'column' }}>
                 <div className="flex-container">
                   <div
-                    className="follows2-card overflow-auto rounded-5"
-                    style={{
-                      marginLeft: '30px',
-                      marginTop: '10px',
-                      width: '150%',
-                      height: '50%',
-                    }}
+                    className="follows2-card rounded-5 ms-4 overflow-auto"
                   >
                     <h4>Following</h4>
-                    {following.map((follows) => (
-                      <Link
-                        key={follows._id}
-                        className="list-group-item"
-                        to={`/Profile/${follows._id}`}
-                      >
-                        <span className="text-dark">
-                          {follows.username + ' '}
-                        </span>
-                        <span className="text-secondary">
-                          {follows.firstName} {follows.lastName}
-                        </span>
-                      </Link>
-                    ))}
+                    <div className='d-flex flex-column overflow-auto'>
+                      {following.map((follows) => (
+                        <Link
+                          key={follows._id}
+                          className="list-group-item"
+                          to={`/Profile/${follows._id}`}
+                        >
+                          <span className="text-dark">
+                            {follows.username + ' '}
+                          </span>
+                          <span className="text-secondary">
+                            {follows.firstName} {follows.lastName}
+                          </span>
+                        </Link>
+                      ))}
+                    </div>
+                    
                   </div>
 
-                <div className="grid-container">
+                <div className="grid-container ms-4 mt-3">
                     <div
                       className="follows2-card overflow-auto rounded-5"
-                      style={{
-                        marginLeft: '30px',
-                        marginTop: '10px',
-                        width: '100%',
-                        height: '150%',
-                      }}
                     >
                       <h4>Liked Songs</h4>
                       {likedSongs.map((song) => (
@@ -375,38 +262,35 @@ function Home() {
                           className="list-group-item"
                           to={`/Details/${song.ArtistName}/${song.SongName}`}
                         >
-                          <span style={{ color: 'blue' }}>
-                            {song.SongName} by
-                          </span>
-                          {' ' + song.ArtistName}
+                          
+                          {song.SongName} by {' ' + song.ArtistName}
                         </Link>
                       ))}
                     </div>
 
                     <div
-                      className="follows2-card overflow-auto rounded-5"
-                      style={{
-                        marginLeft: '60px',
-                        marginTop: '10px',
-                        width: '100%',
-                        height: '150%',
-                      }}
+                      className="follows2-card overflow-auto rounded-5 ms-4"
                     >
                       <h4>My Songs</h4>
-                      {artistSongs.map((song) => (
-                        song.SongName
-                      ))}
+                      <div className='overflow-auto'>
+                        {artistSongs.map((song) => (
+                        <Link
+                          key={song._id}
+                          className="list-group-item"
+                          to={`/Details/${currentUser.username}/${song.SongName}`}
+                        >
+                          
+                          {song.SongName}
+                        </Link>
+                        ))}
+                      </div>
+                     
                     </div>
                   </div>
 
                   <div
-                    className="follows2-card overflow-auto rounded-5"
-                    style={{
-                      marginLeft: '30px',
-                      marginTop: '80px',
-                      width: '150%',
-                      height: '50%',
-                    }}
+                    className="follows2-card overflow-auto rounded-5 mt-4 ms-4"
+                    
                   >
                     <h4>My Reviews</h4>
                     {reviews.map((review, index) => {
@@ -417,14 +301,19 @@ function Home() {
                           : reviewSong.length - 1;
 
                       return (
-                        <div key={review.id}>
-                          {reviewIndex} {' "' + review.review + '" '} for song
-                          --
+                        <div>                         
+                          
                           {reviewSong && reviewSong[songIndex] ? (
-                            <span>
+                            <Link
+                              key={"Review_" + reviewSong[songIndex].ArtistName + "_" + reviewSong[songIndex].SongName}
+                              className="list-group-item"
+                              to={`/Details/${reviewSong[songIndex].ArtistName}/${reviewSong[songIndex].SongName}`}
+                            >
+                              {' "' + review.review + '" '}
+                              --
                               {' ' + reviewSong[songIndex].SongName}
                               {' by ' + reviewSong[songIndex].ArtistName}
-                            </span>
+                            </Link>
                           ) : (
                             <span>No song information</span>
                           )}
@@ -435,30 +324,13 @@ function Home() {
                 </div>
               </div>
             </div>
-            <div className ="">
-              <h2>Top 10 Songs!</h2>
-              <table>
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Song</th>
-                    <th>Artist</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {songs.map((song) => (
-                    <tr key={song.index}>
-                      <td>{song.index}</td>
-                      <td>{song.name}</td>
-                      <td>{song.artist}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            
           </div>
         </div>
       )}
+      </div>
+
+      
     </div>
   );
 }

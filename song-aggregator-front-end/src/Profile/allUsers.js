@@ -16,7 +16,7 @@ function AllUsers() {
         fetchUsers(); 
     }, []);
     return (
-        <div className="d-flex flex-column align-items-center justify-content-center search-bar-container ">
+        <div className="d-flex flex-column align-items-center justify-content-center search-bar-container">
             <div className="d-flex flex-column align-items-left justify-content-center all-users-card rounded-5">
                 <h1>All Users</h1>
                 <input 

@@ -20,7 +20,7 @@ table td {
 }
 
 .table-color {
-  background-color: rgb(167, 147, 147);
+  background-color: rgb(230, 215, 215);
 }
 
 .account-options {
@@ -142,24 +142,42 @@ table td {
 }
 
 .all_users_view_card {
-  background-color: rgb(247, 236, 236);
+  background-color: rgb(230, 215, 215);
   padding-left: 50px;
   padding-top: 20px;
-}
-
-.follows2-card {
-
-  
-  background-color: rgb(247, 236, 236);
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-
- 
 }
 
 .grid-container {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
+}
+
+.top-ten-card {
+  width: 100%;
+  height: 45vh;
+  background-color: rgb(247, 236, 236);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+.follows2-card {
+  width: 100%;
+  height: 20vh;
+  background-color: rgb(247, 236, 236);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+
+.info-card {
+  width: 100%;
+  height: 20vh;
+  background-color: rgb(247, 236, 236);
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+
+.div-for-listener {
+  width: 40%
 }
