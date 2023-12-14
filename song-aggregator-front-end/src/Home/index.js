@@ -100,7 +100,6 @@ function Home() {
         fetchReviews(usr._id).then((reviews) => fetchSongsInfo(reviews));
       }
       if (usr && usr.role === 'ARTIST') fetchArtistSongs(usr._id);
-
     });
 
     fetchAlbums();
